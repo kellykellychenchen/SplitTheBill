@@ -5,6 +5,7 @@ import model.Event;
 import model.Expense;
 import model.Person;
 
+import java.lang.module.FindException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -156,14 +157,98 @@ public class SplitApp {
 
     private void showExpense(Event e) {
         System.out.println("Here's the list of expenses currently in this event:");
+        int i = 0;
         for (Expense ex : e.getExpenses()) {
-            System.out.println("\t" + ex.getExpenseName() + ": $" + ex.getAmount() + " was paid by "
-                    + ex.getPaidBy().getName() + ". This cost is to be shared by:");
-            for (Person p : ex.getSharedBy()) {
-                System.out.println("\t\t" + p.getName());
+            System.out.println("\t" + i + " -> " + ex.getExpenseName() + ": $" + ex.getAmount() + " paid by "
+                    + ex.getPaidBy().getName());
+            i++;
+        }
+        System.out.println("Select one of the events to modify or press b to go back to the event.");
+        String selection = input.next();
+        if (selection.equals("b")) {
+            modifyEvent(e);
+        } else {
+            Expense ex = e.getExpenses().get(Integer.parseInt(selection));
+            System.out.println("You have selected " + ex.getExpenseName() + ": $" + ex.getAmount() + " paid by "
+                    + ex.getPaidBy().getName());
+            modifyExpense (e, ex);
+        }
+    }
+
+    private void modifyExpense(Event e, Expense ex) {
+        expenseMenu();
+        String expenseCommand = input.next();
+        expenseCommand = expenseCommand.toLowerCase();
+
+        if (expenseCommand.equals("n")) {
+            changeExpenseName(e, ex);
+        } else if (expenseCommand.equals("v")) {
+            changeExpenseValue(e, ex);
+        } else if (expenseCommand.equals("p")) {
+            changeExpensePaidBy(e, ex);
+        } else if (expenseCommand.equals("s")) {
+            changeExpenseSharedBy(e, ex);
+        } else if (expenseCommand.equals("b")) {
+            modifyExpense(e, ex);
+        }
+    }
+
+    private void changeExpenseSharedBy(Event e, Expense ex) {
+        System.out.println("Enter the people that share the cost of this expense. Enter one name at a time.");
+        String name = input.next();
+        ArrayList<Person> sharedBy = new ArrayList<>();
+        sharedBy.add(findPersonWithName(name,e.getPeople()));
+        boolean loop = true;
+        while (loop) {
+            System.out.println("Enter the next person's name or n if no more.");
+            String n = input.next();
+            if (n.equals("n")) {
+                loop = false;
+            } else {
+                sharedBy.add(findPersonWithName(n,e.getPeople()));
             }
         }
-        modifyEvent(e);
+        ex.setSharedBy(sharedBy);
+        System.out.println("The people that share this cost has been updated to:");
+        for (Person p : ex.getSharedBy()) {
+            System.out.println("\t" + p.getName());
+        }
+        modifyExpense(e, ex);
+    }
+
+    private void changeExpensePaidBy(Event e, Expense ex) {
+        System.out.println("Enter the name of the person who paid for this expense.");
+        String name = input.next();
+        ex.setPaidBy(findPersonWithName(name, e.getPeople()));
+        System.out.println("This expense was paid by " + ex.getPaidBy().getName());
+        modifyExpense(e, ex);
+    }
+
+    private void changeExpenseValue(Event e, Expense ex) {
+        System.out.println("Enter the new value for this expense.");
+        int amount = input.nextInt();
+        ex.setAmount(amount);
+        System.out.println("The updated value for this expense is $" + ex.getAmount());
+        modifyExpense(e, ex);
+    }
+
+    private void changeExpenseName(Event e, Expense ex) {
+        System.out.println("Type the new name for this expense.");
+        String name = input.next();
+        ex.setExpenseName(name);
+        System.out.println("The updated name for this expense is " + ex.getExpenseName());
+        modifyExpense(e, ex);
+    }
+
+
+
+    private void expenseMenu() {
+        System.out.println("\nWhat would you like to do to this expense?");
+        System.out.println("\tn -> Modify its name");
+        System.out.println("\tv -> Modify its value");
+        System.out.println("\tp -> Change who paid for it");
+        System.out.println("\ts -> Change who shares this cost");
+        System.out.println("Press b to go back to the event or any other key to go back to the main menu.");
     }
 
     private void showPeople(Event e) {
@@ -255,7 +340,7 @@ public class SplitApp {
         System.out.println("\ta -> View the amount paid by each person in this event");
         System.out.println("\ts -> View the cost to be shared by each person in this event");
         System.out.println("\to -> View the outstanding balance for each person in this event");
-        System.out.println("Press b or any other key to go back to the main menu.");
+        System.out.println("Press any other key to go back to the main menu.");
     }
 
     private void initialize() {

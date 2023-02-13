@@ -36,7 +36,7 @@ convenient to manage cost splitting amongst friends and families.
 - As a user, I want to be able to add a new **expense** to an **event**.
 - As a user, I want to be able to view the *list of all expenses* for an **event**. 
 - As a user, I want to be able to view the *list of all people* in an **event**.
-- As a user, I want to be able to select an **expense** and assign to it an *amount*, a *person who paid for it*, and a 
+- As a user, I want to be able to select an **expense** and update its *amount*, the *person who paid for it*, and the 
 list of *people who should share this cost*.
 - As a user, I want to be able to select an **event** and view the *total cost*, total *amount paid by each individual*, 
 total *share of costs for each individual*, and the *outstanding balance* for each individual.
