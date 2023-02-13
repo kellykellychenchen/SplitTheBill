@@ -4,30 +4,27 @@ import java.util.ArrayList;
 
 public class Expense {
     private String expenseName;
-    private String expenseDescription;
     private int amount;
     private Person paidBy;
     private ArrayList<Person> sharedBy;
 
-    public Expense(int amount, Person paidBy, ArrayList<Person> sharedBy) {
-        this.expenseName = "Unnamed Expense";
-        this.expenseDescription = "none";
+    public Expense(String expenseName, int amount, Person paidBy, ArrayList<Person> sharedBy) {
+        this.expenseName = expenseName;
         this.amount = amount;
         this.paidBy = paidBy;
         this.sharedBy = sharedBy;
     }
 
+    // split amount evenly across sharedBy users
     public int SplitAmount() {
         return amount / sharedBy.size();
     }
 
+    //SETTERS:
     public void setExpenseName (String expNam) {
         this.expenseName = expNam;
     }
 
-    public void setExpenseDescription(String expDes) {
-        this.expenseDescription = expDes;
-    }
 
     public void setAmount (int amount) {
         this.amount = amount;
@@ -41,12 +38,10 @@ public class Expense {
         this.sharedBy = sharedBy;
     }
 
+
+    //GETTERS:
     public String getExpenseName() {
         return this.expenseName;
-    }
-
-    public String getExpenseDescription() {
-        return this.expenseDescription;
     }
 
     public int getAmount() {

@@ -18,15 +18,15 @@ class EventTest {
 
     @BeforeEach
     public void setUp() {
-        event1 = new Event();
+        event1 = new Event("event1");
         p1 = new Person("name1");
         p2 = new Person("name2");
         lop1 = new ArrayList<Person>();
         lop1.add(p1);
         lop1.add(p2);
-        exp1 = new Expense(100,p1,lop1);
-        exp2 = new Expense(200,p2,lop1);
-        exp3 = new Expense(300,p1,lop1);
+        exp1 = new Expense("s1",100,p1,lop1);
+        exp2 = new Expense("s2", 200,p2,lop1);
+        exp3 = new Expense("s3", 300,p1,lop1);
     }
 
     @Test
@@ -49,8 +49,7 @@ class EventTest {
         event1.addExpense(exp1);
         event1.addExpense(exp2);
         event1.addExpense(exp3);
-        event1.calculateTotal();
-        assertEquals(600, event1.getTotalCost());
+        assertEquals(600, event1.calcTotalCost());
     }
 
 }

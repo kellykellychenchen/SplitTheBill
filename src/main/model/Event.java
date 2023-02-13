@@ -1,31 +1,31 @@
 package model;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Event {
     private String eventName;
     private ArrayList<Person> people;
     private ArrayList<Expense> expenses;
 
-    public Event() {
-        this.eventName = "Unnamed Event";
+    public Event(String eventName) {
+        this.eventName = eventName;
         this.people = new ArrayList<Person>();
         this.expenses = new ArrayList<Expense>();
     }
 
-    //give a name to event
+    //rename the event
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
-    //TODO: MAKE EXPENSE LIST AUTOMATICALLY ADD PEOPLE
-    
-    //add people
-    public void addPerson(Person p) {
+    //add person
+    public void addPerson (Person p) {
         people.add(p);
     }
 
-    public void removePerson(Person p) {
+    //remove person
+    public void removePerson (Person p) {
         people.remove(p);
     }
 
@@ -39,16 +39,16 @@ public class Event {
     }
 
     //calculate total cost
-    public int totalCost() {
+    public int calcTotalCost() {
         int result = 0;
-        for (Expense e : expenses) {
+        for (Expense e : this.expenses) {
             result += e.getAmount();
         }
         return result;
     }
 
     // calculate total amount paid by a person in an event
-    public int totalPaidByPerson(Person p) {
+    public int calcTotalPaidByPerson(Person p) {
         int result = 0;
         for (Expense e : expenses) {
             if (e.getPaidBy() == p) {
@@ -59,7 +59,7 @@ public class Event {
     }
 
     // calculate total shared cost for a person in an event
-    public int totalSharedByPerson(Person p) {
+    public int calcTotalSharedByPerson(Person p) {
         int result = 0;
         for (Expense e: expenses) {
             if (e.getSharedBy().contains(p)) {
@@ -69,7 +69,10 @@ public class Event {
         return result;
     }
 
-
+    // calculate balance for a person in an event. Positive means receivable. Negative means owing.
+    public int calcBalance(Person p) {
+        return calcTotalPaidByPerson(p) - calcTotalSharedByPerson(p);
+    }
 
     // getters
     public String getEventName() {
@@ -83,4 +86,5 @@ public class Event {
     public ArrayList<Expense> getExpenses() {
         return expenses;
     }
+
 }
