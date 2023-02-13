@@ -12,6 +12,7 @@ class EventTest {
     Expense exp1;
     Expense exp2;
     Expense exp3;
+    Expense exp4;
     Person p1;
     Person p2;
     ArrayList<Person> lop1;
