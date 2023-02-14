@@ -1,6 +1,4 @@
-package Exceptions;
-
-import model.Expense;
+package exceptions;
 
 public class InvalidSelectionException extends Exception {
 }

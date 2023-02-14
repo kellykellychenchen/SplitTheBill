@@ -1,7 +1,7 @@
 package ui;
 
-import Exceptions.InvalidSelectionException;
-import Exceptions.PersonNotFoundException;
+import exceptions.InvalidSelectionException;
+import exceptions.PersonNotFoundException;
 import model.Event;
 import model.Expense;
 import model.Person;
@@ -22,7 +22,7 @@ public class SplitApp {
 
     private void runSplitter() {
         boolean keepGoing = true;
-        String command = null;
+        String command;
         initialize();
 
         while (keepGoing) {
@@ -102,8 +102,7 @@ public class SplitApp {
     // ----- EVENT MENU ----- //
     private void modifyEvent(Event e) {
         eventMenu();
-        String eventCommand = input.next();
-        eventCommand = eventCommand.toLowerCase();
+        String eventCommand = input.next().toLowerCase();
 
         if (eventCommand.equals("p")) {
             addPerson(e);
@@ -125,9 +124,6 @@ public class SplitApp {
             showSharedBy(e);
         } else if (eventCommand.equals("o")) {
             showBalance(e);
-        } else if (eventCommand.equals("b")) {
-        } else {
-            invalidCommand();
         }
     }
 
@@ -142,7 +138,7 @@ public class SplitApp {
         System.out.println("\ta -> View the amount paid by each person in this event");
         System.out.println("\ts -> View the cost to be shared by each person in this event");
         System.out.println("\to -> View the outstanding balance for each person in this event");
-        System.out.println("Press b to go back to the main menu.");
+        System.out.println("Press anything else to go back to the main menu.");
     }
 
     private void addPerson(Event e) {
@@ -169,7 +165,7 @@ public class SplitApp {
 
 
     private void showPeople(Event e) {
-        if (e.getPeople().size() <= 0 ) {
+        if (e.getPeople().size() <= 0) {
             System.out.println("You don't have any people in this event.");
             forceAddPerson(e);
         } else {
@@ -184,42 +180,16 @@ public class SplitApp {
 
     // add expense method assumes payer & sharers have already been added to people list.
     private void addExpense(Event e) throws PersonNotFoundException {
-        if (e.getPeople().size() <= 0 ) {
-            System.out.println("You don't have any people in this event. " +
-                    "You MUST add people before adding an expenses.");
+        if (e.getPeople().size() <= 0) {
+            System.out.println("You don't have any people in this event. "
+                    + "You MUST add people before adding an expenses.");
             forceAddPerson(e);
         } else {
-            System.out.println("Give this expense a name.");
-            String expNam = input.next();
+            String expNam = promptExpenseName();
+            int amount = promptExpenseAmount();
+            Person paidBy = promptPaidBy(e);
+            ArrayList<Person> sharedBy = promptSharedBy(e);
 
-            System.out.println("How much did this expense cost?");
-            int amount = input.nextInt();
-            if (amount >= 100 && amount < 1000) {
-                System.out.println("wow that's expensive..");
-            } else if (amount >= 1000 && amount < 10000) {
-                System.out.println("wow that's REALLY expensive..");
-            } else if (amount >= 10000) {
-                System.out.println("WOW u must be rich... can i be friends with u pls? no? ok :(");
-            }
-
-            System.out.println("Who paid for this expense?");
-            String name = input.next();
-            Person paidBy = findPersonWithName(name, e.getPeople());
-
-            System.out.println("Who should this cost be shared by? Enter their names one at a time.");
-            boolean loop = true;
-            ArrayList<Person> sharedBy = new ArrayList<>();
-            String n1 = input.next();
-            sharedBy.add(findPersonWithName(n1, e.getPeople()));
-            while (loop) {
-                System.out.println("Anyone else? Enter another name or n if no more.");
-                String n = input.next();
-                if (n.equals("n")) {
-                    loop = false;
-                } else {
-                    sharedBy.add(findPersonWithName(n, e.getPeople()));
-                }
-            }
             Expense e1 = new Expense(expNam, amount, paidBy, sharedBy);
             e.addExpense(e1);
             System.out.printf("A new expense of $" + e1.getAmount() + " has been added to this event.");
@@ -227,8 +197,50 @@ public class SplitApp {
         }
     }
 
+    private String promptExpenseName() {
+        System.out.println("Give this expense a name.");
+        return input.next();
+    }
+
+    private int promptExpenseAmount() {
+        System.out.println("How much did this expense cost?");
+        int amount = input.nextInt();
+        if (amount >= 100 && amount < 1000) {
+            System.out.println("wow that's expensive..");
+        } else if (amount >= 1000 && amount < 10000) {
+            System.out.println("wow that's REALLY expensive..");
+        } else if (amount >= 10000) {
+            System.out.println("WOW u must be rich... can i be friends with u pls? jk..");
+        }
+        return amount;
+    }
+
+    private Person promptPaidBy(Event e) throws PersonNotFoundException {
+        System.out.println("Who paid for this expense?");
+        String name = input.next();
+        return findPersonWithName(name, e.getPeople());
+    }
+
+    private ArrayList<Person> promptSharedBy(Event e) throws PersonNotFoundException {
+        System.out.println("Who should this cost be shared by? Enter their names one at a time.");
+        boolean loop = true;
+        ArrayList<Person> sharedBy = new ArrayList<>();
+        String n1 = input.next();
+        sharedBy.add(findPersonWithName(n1, e.getPeople()));
+        while (loop) {
+            System.out.println("Anyone else? Enter another name or n if no more.");
+            String n = input.next();
+            if (n.equals("n")) {
+                loop = false;
+            } else {
+                sharedBy.add(findPersonWithName(n, e.getPeople()));
+            }
+        }
+        return sharedBy;
+    }
+
     private void showExpense(Event e) {
-        if (e.getExpenses().size() <= 0 ) {
+        if (e.getExpenses().size() <= 0) {
             System.out.println("There are no expenses in this event");
             backToEventMenu(e);
         } else {
@@ -264,6 +276,7 @@ public class SplitApp {
         }
         backToEventMenu(e);
     }
+
     private void showSharedBy(Event e) {
         for (Person p : e.getPeople()) {
             System.out.println(p.getName() + " shares a total of $" + e.calcTotalSharedByPerson(p)
@@ -271,6 +284,7 @@ public class SplitApp {
         }
         backToEventMenu(e);
     }
+
     private void showBalance(Event e) {
         for (Person p : e.getPeople()) {
             int balance = e.calcBalance(p);
@@ -285,16 +299,10 @@ public class SplitApp {
     }
 
 
-
-
-
-
-
     // ------ EXPENSE MENU ------ //
     private void modifyExpense(Event e, Expense ex) {
         expenseMenu();
-        String expenseCommand = input.next();
-        expenseCommand = expenseCommand.toLowerCase();
+        String expenseCommand = input.next().toLowerCase();
 
         if (expenseCommand.equals("n")) {
             changeExpenseName(e, ex);
@@ -356,7 +364,7 @@ public class SplitApp {
         System.out.println("Enter the people that share the cost of this expense. Enter one name at a time.");
         String name = input.next();
         ArrayList<Person> sharedBy = new ArrayList<>();
-        sharedBy.add(findPersonWithName(name,e.getPeople()));
+        sharedBy.add(findPersonWithName(name, e.getPeople()));
         boolean loop = true;
         while (loop) {
             System.out.println("Enter the next person's name or n if no more.");
@@ -364,7 +372,7 @@ public class SplitApp {
             if (n.equals("n")) {
                 loop = false;
             } else {
-                sharedBy.add(findPersonWithName(n,e.getPeople()));
+                sharedBy.add(findPersonWithName(n, e.getPeople()));
             }
         }
         ex.setSharedBy(sharedBy);
@@ -374,8 +382,6 @@ public class SplitApp {
         }
         backToExpenseMenu(e, ex);
     }
-
-
 
 
     // ------ HELPER FUNCTIONS ------//
@@ -389,8 +395,8 @@ public class SplitApp {
     }
 
     private void fixPersonNotFound(Event e) {
-        System.out.println("Cannot find a person with this name in the current event. " +
-                "You MUST create the person before adding them to any expenses");
+        System.out.println("Cannot find a person with this name in the current event. "
+                + "You MUST create the person before adding them to any expenses");
         forceAddPerson(e);
     }
 
@@ -408,8 +414,8 @@ public class SplitApp {
 
     private void invalidCommand() {
         System.out.println("That was not one of the many options I've given you.");
-        System.out.println("You obviously cannot follow instructions... " +
-                "So you get taken back to the main screen.");
+        System.out.println("You obviously cannot follow instructions... "
+                + "So you get taken back to the main screen.");
     }
 
     private void backToEventMenu(Event e) {
@@ -425,7 +431,7 @@ public class SplitApp {
     }
 
     private void initialize() {
-        events = new ArrayList<Event>();
+        events = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
     }

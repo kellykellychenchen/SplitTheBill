@@ -16,17 +16,17 @@ public class Expense {
     }
 
     // split amount evenly across sharedBy users
-    public int SplitAmount() {
+    public int splitAmount() {
         return amount / sharedBy.size();
     }
 
     //SETTERS:
-    public void setExpenseName (String expNam) {
+    public void setExpenseName(String expNam) {
         this.expenseName = expNam;
     }
 
 
-    public void setAmount (int amount) {
+    public void setAmount(int amount) {
         this.amount = amount;
     }
 

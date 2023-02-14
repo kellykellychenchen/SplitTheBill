@@ -1,7 +1,6 @@
 package model;
 
 import java.util.ArrayList;
-import java.util.List;
 
 public class Event {
     private String eventName;
@@ -10,8 +9,8 @@ public class Event {
 
     public Event(String eventName) {
         this.eventName = eventName;
-        this.people = new ArrayList<Person>();
-        this.expenses = new ArrayList<Expense>();
+        this.people = new ArrayList<>();
+        this.expenses = new ArrayList<>();
     }
 
     //rename the event
@@ -20,22 +19,15 @@ public class Event {
     }
 
     //add person
-    public void addPerson (Person p) {
+    public void addPerson(Person p) {
         people.add(p);
+        p.addEvent(this);
     }
 
-    //remove person
-    public void removePerson (Person p) {
-        people.remove(p);
-    }
 
     //add expense
-    public void addExpense (Expense e) {
+    public void addExpense(Expense e) {
         expenses.add(e);
-    }
-
-    public void removeExpense (Expense e) {
-        expenses.remove(e);
     }
 
     //calculate total cost
@@ -61,9 +53,9 @@ public class Event {
     // calculate total shared cost for a person in an event
     public int calcTotalSharedByPerson(Person p) {
         int result = 0;
-        for (Expense e: expenses) {
+        for (Expense e : expenses) {
             if (e.getSharedBy().contains(p)) {
-                result += e.SplitAmount();
+                result += e.splitAmount();
             }
         }
         return result;
