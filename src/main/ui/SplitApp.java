@@ -1,7 +1,7 @@
 package ui;
 
-import exceptions.InvalidSelectionException;
-import exceptions.PersonNotFoundException;
+import ui.exceptions.InvalidSelectionException;
+import ui.exceptions.PersonNotFoundException;
 import model.Event;
 import model.Expense;
 import model.Person;
@@ -185,34 +185,16 @@ public class SplitApp {
                     + "You MUST add people before adding an expenses.");
             forceAddPerson(e);
         } else {
-            String expNam = promptExpenseName();
-            int amount = promptExpenseAmount();
             Person paidBy = promptPaidBy(e);
             ArrayList<Person> sharedBy = promptSharedBy(e);
+            String expNam = promptExpenseName();
+            int amount = promptExpenseAmount();
 
             Expense e1 = new Expense(expNam, amount, paidBy, sharedBy);
             e.addExpense(e1);
             System.out.printf("A new expense of $" + e1.getAmount() + " has been added to this event.");
             backToEventMenu(e);
         }
-    }
-
-    private String promptExpenseName() {
-        System.out.println("Give this expense a name.");
-        return input.next();
-    }
-
-    private int promptExpenseAmount() {
-        System.out.println("How much did this expense cost?");
-        int amount = input.nextInt();
-        if (amount >= 100 && amount < 1000) {
-            System.out.println("wow that's expensive..");
-        } else if (amount >= 1000 && amount < 10000) {
-            System.out.println("wow that's REALLY expensive..");
-        } else if (amount >= 10000) {
-            System.out.println("WOW u must be rich... can i be friends with u pls? jk..");
-        }
-        return amount;
     }
 
     private Person promptPaidBy(Event e) throws PersonNotFoundException {
@@ -239,7 +221,24 @@ public class SplitApp {
         return sharedBy;
     }
 
-    private void showExpense(Event e) {
+    private int promptExpenseAmount() {
+        System.out.println("How much did this expense cost?");
+        int amount = input.nextInt();
+        if (amount >= 100 && amount < 1000) {
+            System.out.println("wow that's expensive..");
+        } else if (amount >= 1000 && amount < 10000) {
+            System.out.println("wow that's REALLY expensive..");
+        } else if (amount >= 10000) {
+            System.out.println("WOW u must be rich... can i be friends with u pls? jk..");
+        }
+        return amount;
+    }
+    private String promptExpenseName() {
+        System.out.println("Give this expense a name.");
+        return input.next();
+    }
+
+     private void showExpense(Event e) {
         if (e.getExpenses().size() <= 0) {
             System.out.println("There are no expenses in this event");
             backToEventMenu(e);
@@ -256,11 +255,29 @@ public class SplitApp {
             if (selection.equals("b")) {
                 modifyEvent(e);
             } else {
-                Expense ex = e.getExpenses().get(Integer.parseInt(selection));
-                System.out.println("You have selected " + ex.getExpenseName() + ": $" + ex.getAmount() + " paid by "
-                        + ex.getPaidBy().getName());
-                modifyExpense(e, ex);
+                try {
+                    selectExpense(e, selection);
+                } catch (InvalidSelectionException exc) {
+                    System.out.println("No. Pick from one of the numbers I gave you... It's not that hard.");
+                    showExpense(e);
+                } catch (NumberFormatException exc) {
+                    System.out.println("No. By numbers I mean stuff like 0, 1, 2 ... Try again");
+                    input.next();
+                    showExpense(e);
+                }
             }
+        }
+    }
+
+    private void selectExpense(Event e, String selection) throws InvalidSelectionException {
+        int s = Integer.parseInt(selection);
+        if (s < 0 || s >= e.getExpenses().size()) {
+            throw new InvalidSelectionException();
+        } else {
+            Expense ex = e.getExpenses().get(s);
+            System.out.println("You have selected " + ex.getExpenseName() + ": $" + ex.getAmount() + " paid by "
+                    + ex.getPaidBy().getName());
+            modifyExpense(e, ex);
         }
     }
 

@@ -10,7 +10,7 @@ of individuals by:
 - Tracking who an expense should be split between
 
 The program will help manage shared bills by calculating the total amount paid by each individual, the total share of 
-spending for each individual, and the outstanding payable or receivable balance.
+spending for each individual, and outstanding balance for each individual.
 This program can be used by friends and families that engage in any type of activities together that involves shared
 costs among 2 or more individuals. Examples include hosting a home party, visiting an amusement park, 
 seeing a movie, and dining out. This program will be especially useful to manage bills shared when travelling together
