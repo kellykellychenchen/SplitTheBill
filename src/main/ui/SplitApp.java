@@ -12,6 +12,7 @@ import java.util.Scanner;
 
 import static java.lang.Math.abs;
 
+// SplitApp includes the user interface for using the application.
 public class SplitApp {
     private ArrayList<Event> events;
     private Scanner input;
