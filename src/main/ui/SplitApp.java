@@ -166,8 +166,7 @@ public class SplitApp {
 
     private void showPeople(Event e) {
         if (e.getPeople().size() <= 0) {
-            System.out.println("You don't have any people in this event.");
-            forceAddPerson(e);
+            noPeople(e);
         } else {
             System.out.println("Here's the list of people currently in this event:");
             for (Person p : e.getPeople()) {
@@ -181,9 +180,7 @@ public class SplitApp {
     // add expense method assumes payer & sharers have already been added to people list.
     private void addExpense(Event e) throws PersonNotFoundException {
         if (e.getPeople().size() <= 0) {
-            System.out.println("You don't have any people in this event. "
-                    + "You MUST add people before adding an expenses.");
-            forceAddPerson(e);
+            noPeople(e);
         } else {
             Person paidBy = promptPaidBy(e);
             ArrayList<Person> sharedBy = promptSharedBy(e);
@@ -196,6 +193,7 @@ public class SplitApp {
             backToEventMenu(e);
         }
     }
+
 
     private Person promptPaidBy(Event e) throws PersonNotFoundException {
         System.out.println("Who paid for this expense?");
@@ -287,32 +285,44 @@ public class SplitApp {
     }
 
     private void showPaidBy(Event e) {
-        for (Person p : e.getPeople()) {
-            System.out.println(p.getName() + " has paid a total of $" + e.calcTotalPaidByPerson(p)
-                    + " in this event.");
+        if (e.getPeople().size() <= 0) {
+            noPeople(e);
+        } else {
+            for (Person p : e.getPeople()) {
+                System.out.println(p.getName() + " has paid a total of $" + e.calcTotalPaidByPerson(p)
+                        + " in this event.");
+            }
+            backToEventMenu(e);
         }
-        backToEventMenu(e);
     }
 
     private void showSharedBy(Event e) {
-        for (Person p : e.getPeople()) {
-            System.out.println(p.getName() + " shares a total of $" + e.calcTotalSharedByPerson(p)
-                    + " in this event.");
+        if (e.getPeople().size() <= 0) {
+            noPeople(e);
+        } else {
+            for (Person p : e.getPeople()) {
+                System.out.println(p.getName() + " shares a total of $" + e.calcTotalSharedByPerson(p)
+                        + " in this event.");
+            }
+            backToEventMenu(e);
         }
-        backToEventMenu(e);
     }
 
     private void showBalance(Event e) {
-        for (Person p : e.getPeople()) {
-            int balance = e.calcBalance(p);
-            if (balance <= 0) {
-                balance = abs(balance);
-                System.out.println(p.getName() + " owes $" + balance);
-            } else {
-                System.out.println(p.getName() + " should receive $" + balance);
+        if (e.getPeople().size() <= 0) {
+            noPeople(e);
+        } else {
+            for (Person p : e.getPeople()) {
+                int balance = e.calcBalance(p);
+                if (balance <= 0) {
+                    balance = abs(balance);
+                    System.out.println(p.getName() + " owes $" + balance);
+                } else {
+                    System.out.println(p.getName() + " should receive $" + balance);
+                }
             }
+            backToEventMenu(e);
         }
-        backToEventMenu(e);
     }
 
 
@@ -411,6 +421,11 @@ public class SplitApp {
         throw new PersonNotFoundException();
     }
 
+    private void noPeople(Event e) {
+        System.out.println("You don't have any people in this event. "
+                + "You MUST add people before you can do anything else.");
+        forceAddPerson(e);
+    }
     private void fixPersonNotFound(Event e) {
         System.out.println("Cannot find a person with this name in the current event. "
                 + "You MUST create the person before adding them to any expenses");
