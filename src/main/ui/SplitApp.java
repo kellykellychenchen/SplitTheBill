@@ -283,17 +283,23 @@ public class SplitApp {
             if (selection.equals("b")) {
                 modifyEvent(e);
             } else {
-                try {
-                    selectExpense(e, selection);
-                } catch (InvalidSelectionException exc) {
-                    System.out.println("No. Pick from one of the numbers I gave you... It's not that hard.");
-                    showExpense(e);
-                } catch (NumberFormatException exc) {
-                    System.out.println("No. By numbers I mean stuff like 0, 1, 2 ... Try again");
-                    input.next();
-                    showExpense(e);
-                }
+                tryCatchInvalidInputSelectExpense(e, selection);
             }
+        }
+    }
+
+    // EFFECTS: try to choose from a list of existing expenses, catch input that doesn't match one of the options
+    // given and bring user back to the previous screen to re-choose the expense.
+    private void tryCatchInvalidInputSelectExpense(Event e, String selection) {
+        try {
+            selectExpense(e, selection);
+        } catch (InvalidSelectionException exc) {
+            System.out.println("No. Pick from one of the numbers I gave you... It's not that hard.");
+            showExpense(e);
+        } catch (NumberFormatException exc) {
+            System.out.println("No. By numbers I mean stuff like 0, 1, 2 ... Try again");
+            input.next();
+            showExpense(e);
         }
     }
 
