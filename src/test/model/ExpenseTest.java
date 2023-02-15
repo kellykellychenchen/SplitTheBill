@@ -5,7 +5,9 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
+import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class ExpenseTest {
     Event event1;
@@ -43,6 +45,7 @@ public class ExpenseTest {
         assertEquals(100, exp1.getAmount());
         assertEquals(p1, exp1.getPaidBy());
         assertEquals(lop, exp1.getSharedBy());
+        assertTrue(isNull(exp1.getFromEvent()));
     }
 
     @Test
@@ -75,4 +78,9 @@ public class ExpenseTest {
         assertEquals(lop2, exp1.getSharedBy());
     }
 
+    @Test
+    public void testSetFromEvent() {
+        exp1.setFromEvent(event1);
+        assertEquals(event1, exp1.getFromEvent());
+    }
 }

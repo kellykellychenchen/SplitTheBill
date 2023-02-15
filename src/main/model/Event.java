@@ -29,10 +29,11 @@ public class Event {
         p.addEvent(this);
     }
 
-    // MODIFIES: this.
+    // MODIFIES: this and expense ex.
     // EFFECTS: adds a given expense to the event's expense list.
-    public void addExpense(Expense e) {
-        expenses.add(e);
+    public void addExpense(Expense ex) {
+        expenses.add(ex);
+        ex.setFromEvent(this);
     }
 
     // EFFECTS: returns an integer representing the total cost of all expenses in this event.

@@ -12,15 +12,18 @@ import java.util.Scanner;
 
 import static java.lang.Math.abs;
 
-// SplitApp includes the user interface for using the application.
+// SplitApp includes the console-based user interface for using the application.
 public class SplitApp {
     private ArrayList<Event> events;
     private Scanner input;
 
+    // EFFECTS: starts the splitter application.
     public SplitApp() {
         runSplitter();
     }
 
+    // EFFECTS: initializes the application, displays the main menu, and keeps the program running until the command
+    // "q" is entered by user.
     private void runSplitter() {
         boolean keepGoing = true;
         String command;
@@ -40,6 +43,7 @@ public class SplitApp {
         System.out.println("Remember to pay your debts. GOODBYE");
     }
 
+    // EFFECTS: prints out the options in the main menu.
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> Create a new event");
@@ -47,6 +51,8 @@ public class SplitApp {
         System.out.println("\tq -> quit");
     }
 
+    // EFFECTS: processes the command received from the main menu by either creating an event, choosing an existing
+    // event, or quitting the application.
     private void processCommand(String command) {
         if (command.equals("c")) {
             createEvent();
@@ -62,6 +68,7 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: prints out the list of existing events and prompts the user to select from one of them.
     private void chooseEvent() {
         int i = 0;
         System.out.println("Choose from one of the following existing events.");
@@ -81,6 +88,7 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: reads the user's selection of event and takes the user to the event menu for the selected event.
     private void chooseFromListOfEvents() throws InvalidSelectionException {
         int selection = input.nextInt();
         if (selection < 0 || selection >= events.size()) {
@@ -91,6 +99,9 @@ public class SplitApp {
         modifyEvent(e);
     }
 
+    // MODIFIES: this.
+    // EFFECTS: prompts the user for a name, creates a new event with that name, adds that event to the app's list of
+    // events, and takes the user to the event menu for that event.
     private void createEvent() {
         System.out.println("What's the name of your new event?");
         String eventName = input.next();
@@ -100,7 +111,10 @@ public class SplitApp {
         modifyEvent(e);
     }
 
+
     // ----- EVENT MENU ----- //
+    // EFFECTS: displays the event menu for a given event, prompts the user to select an option, and process the user's
+    // selection.
     private void modifyEvent(Event e) {
         eventMenu();
         String eventCommand = input.next().toLowerCase();
@@ -128,7 +142,7 @@ public class SplitApp {
         }
     }
 
-
+    // EFFECTS: prints out the options for users to choose from in the event menu.
     private void eventMenu() {
         System.out.println("\nWhat would you like to do in this event?");
         System.out.println("\tp -> Add a new person to this event");
@@ -142,6 +156,10 @@ public class SplitApp {
         System.out.println("Press anything else to go back to the main menu.");
     }
 
+    // MODIFIES: the given event.
+    // EFFECTS: prompts the user to enter a name, creates a new person with that name, and adds that person to the given
+    // event. Continues to prompt the user to enter new names until command "n" is entered by user. Then return to the
+    // event menu.
     private void addPerson(Event e) {
         System.out.println("What's the name of this person being added?");
         String name = input.next();
@@ -164,7 +182,7 @@ public class SplitApp {
         modifyEvent(e);
     }
 
-
+    // EFFECTS: prints out the list of people in the given event, then return to the event menu.
     private void showPeople(Event e) {
         if (e.getPeople().size() <= 0) {
             noPeople(e);
@@ -177,8 +195,9 @@ public class SplitApp {
         }
     }
 
-
-    // add expense method assumes payer & sharers have already been added to people list.
+    // MODIFIES: the given event.
+    // EFFECTS: prompts the user for information on an expense, creates a new expense with this information, adds
+    // the new expense to the current event, and returns to the event menu.
     private void addExpense(Event e) throws PersonNotFoundException {
         if (e.getPeople().size() <= 0) {
             noPeople(e);
@@ -195,13 +214,16 @@ public class SplitApp {
         }
     }
 
-
+    // REQUIRES: a person with the name entered by the user must already exist in the people list of the given event.
+    // EFFECTS: prompts the user to enter the name of a person who paid for an expense and returns that person.
     private Person promptPaidBy(Event e) throws PersonNotFoundException {
         System.out.println("Who paid for this expense?");
         String name = input.next();
         return findPersonWithName(name, e.getPeople());
     }
 
+    // REQUIRES: a person with the name entered by the user must already exist in the people list of the given event.
+    // EFFECTS: prompts the user to enter names of people who shared an expense and returns a list of those people.
     private ArrayList<Person> promptSharedBy(Event e) throws PersonNotFoundException {
         System.out.println("Who should this cost be shared by? Enter their names one at a time.");
         boolean loop = true;
@@ -220,8 +242,10 @@ public class SplitApp {
         return sharedBy;
     }
 
+    // REQUIRES: user must enter an integer.
+    // EFFECTS: prompts the user to enter the amount of an expense and returns an integer representing that amount.
     private int promptExpenseAmount() {
-        System.out.println("How much did this expense cost?");
+        System.out.println("How much did this expense cost? Enter an integer.");
         int amount = input.nextInt();
         if (amount >= 100 && amount < 1000) {
             System.out.println("wow that's expensive..");
@@ -232,12 +256,17 @@ public class SplitApp {
         }
         return amount;
     }
+
+    // EFFECTS: prompts the user for an expense name and returns a string representing that name.
     private String promptExpenseName() {
         System.out.println("Give this expense a name.");
         return input.next();
     }
 
-     private void showExpense(Event e) {
+    // REQUIRES: user must enter an integer or "b".
+    // EFFECTS: prints out a list of the expenses in the given event, and prompts the user to select one of the expenses
+    // or return to the event menu.
+    private void showExpense(Event e) {
         if (e.getExpenses().size() <= 0) {
             System.out.println("There are no expenses in this event");
             backToEventMenu(e);
@@ -268,6 +297,7 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: prints out the expense selected by the user and takes the user to the expense menu for that expense.
     private void selectExpense(Event e, String selection) throws InvalidSelectionException {
         int s = Integer.parseInt(selection);
         if (s < 0 || s >= e.getExpenses().size()) {
@@ -276,15 +306,18 @@ public class SplitApp {
             Expense ex = e.getExpenses().get(s);
             System.out.println("You have selected " + ex.getExpenseName() + ": $" + ex.getAmount() + " paid by "
                     + ex.getPaidBy().getName());
-            modifyExpense(e, ex);
+            modifyExpense(ex);
         }
     }
 
+    // EFFECTS: prints out the total cost of the given event.
     private void showTotal(Event e) {
         System.out.println("The total cost of all expenses in this event is $" + e.calcTotalCost());
         backToEventMenu(e);
     }
 
+    // EFFECTS: prints out the list of all people in the given event with the total amount they have paid for in the
+    // given event, then return to the event menu.
     private void showPaidBy(Event e) {
         if (e.getPeople().size() <= 0) {
             noPeople(e);
@@ -297,6 +330,8 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: prints out the list of all people in the given event with the total amount they share in the
+    // given event, then return to the event menu.
     private void showSharedBy(Event e) {
         if (e.getPeople().size() <= 0) {
             noPeople(e);
@@ -309,6 +344,8 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: prints out the list of all people in the given event with the total balance they owe or should receive
+    // from all expenses in the given event, then return to the event menu.
     private void showBalance(Event e) {
         if (e.getPeople().size() <= 0) {
             noPeople(e);
@@ -328,33 +365,36 @@ public class SplitApp {
 
 
     // ------ EXPENSE MENU ------ //
-    private void modifyExpense(Event e, Expense ex) {
+    // EFFECTS: displays the expense menu for a given expense, prompts the user to select an option, and process the
+    // user's selection.
+    private void modifyExpense(Expense ex) {
         expenseMenu();
         String expenseCommand = input.next().toLowerCase();
 
         if (expenseCommand.equals("n")) {
-            changeExpenseName(e, ex);
+            changeExpenseName(ex);
         } else if (expenseCommand.equals("v")) {
-            changeExpenseValue(e, ex);
+            changeExpenseValue(ex);
         } else if (expenseCommand.equals("p")) {
             try {
-                changeExpensePaidBy(e, ex);
+                changeExpensePaidBy(ex);
             } catch (PersonNotFoundException exc) {
-                fixPersonNotFound(e);
+                fixPersonNotFound(ex.getFromEvent());
             }
         } else if (expenseCommand.equals("s")) {
             try {
-                changeExpenseSharedBy(e, ex);
+                changeExpenseSharedBy(ex);
             } catch (PersonNotFoundException exc) {
-                fixPersonNotFound(e);
+                fixPersonNotFound(ex.getFromEvent());
             }
         } else if (expenseCommand.equals("b")) {
-            modifyEvent(e);
+            modifyEvent(ex.getFromEvent());
         } else {
             invalidCommand();
         }
     }
 
+    // EFFECTS: prints out the options for users to choose from in the expense menu.
     private void expenseMenu() {
         System.out.println("\nWhat would you like to do to this expense?");
         System.out.println("\tn -> Modify its name");
@@ -364,35 +404,48 @@ public class SplitApp {
         System.out.println("Press b to go back to the event menu.");
     }
 
-    private void changeExpenseName(Event e, Expense ex) {
+    // MODIFIES: this
+    // EFFECTS: prompts the user to enter a new name for this expense, sets the expense name to the new name, then
+    // returns to the expense menu.
+    private void changeExpenseName(Expense ex) {
         System.out.println("Type the new name for this expense.");
         String name = input.next();
         ex.setExpenseName(name);
         System.out.println("The updated name for this expense is " + ex.getExpenseName());
-        backToExpenseMenu(e, ex);
+        backToExpenseMenu(ex);
     }
 
-    private void changeExpenseValue(Event e, Expense ex) {
-        System.out.println("Enter the new value for this expense.");
+    // REQUIRES: user must enter an integer.
+    // MODIFIES: this
+    // EFFECTS: prompts the user to enter a new value for this expense, sets the expense amount to the new amount, then
+    // returns to the expense menu.
+    private void changeExpenseValue(Expense ex) {
+        System.out.println("Enter an integer for the new value for this expense.");
         int amount = input.nextInt();
         ex.setAmount(amount);
         System.out.println("The updated value for this expense is $" + ex.getAmount());
-        backToExpenseMenu(e, ex);
+        backToExpenseMenu(ex);
     }
 
-    private void changeExpensePaidBy(Event e, Expense ex) throws PersonNotFoundException {
+    // MODIFIES: this
+    // EFFECTS: prompts the user to enter the name of a person who paid for this expense, sets the expense's paidBy
+    // to the person with the given name, then returns to the expense menu.
+    private void changeExpensePaidBy(Expense ex) throws PersonNotFoundException {
         System.out.println("Enter the name of the person who paid for this expense.");
         String name = input.next();
-        ex.setPaidBy(findPersonWithName(name, e.getPeople()));
+        ex.setPaidBy(findPersonWithName(name, ex.getFromEvent().getPeople()));
         System.out.println("This expense was paid by " + ex.getPaidBy().getName());
-        backToExpenseMenu(e, ex);
+        backToExpenseMenu(ex);
     }
 
-    private void changeExpenseSharedBy(Event e, Expense ex) throws PersonNotFoundException {
+    // MODIFIES: this
+    // EFFECTS: prompts the user to enter the names of people who paid for this expense, sets the expense's sharedBy
+    // to the list of people with the given name, then returns to the expense menu.
+    private void changeExpenseSharedBy(Expense ex) throws PersonNotFoundException {
         System.out.println("Enter the people that share the cost of this expense. Enter one name at a time.");
         String name = input.next();
         ArrayList<Person> sharedBy = new ArrayList<>();
-        sharedBy.add(findPersonWithName(name, e.getPeople()));
+        sharedBy.add(findPersonWithName(name, ex.getFromEvent().getPeople()));
         boolean loop = true;
         while (loop) {
             System.out.println("Enter the next person's name or n if no more.");
@@ -400,7 +453,7 @@ public class SplitApp {
             if (n.equals("n")) {
                 loop = false;
             } else {
-                sharedBy.add(findPersonWithName(n, e.getPeople()));
+                sharedBy.add(findPersonWithName(n, ex.getFromEvent().getPeople()));
             }
         }
         ex.setSharedBy(sharedBy);
@@ -408,11 +461,13 @@ public class SplitApp {
         for (Person p : ex.getSharedBy()) {
             System.out.println("\t" + p.getName());
         }
-        backToExpenseMenu(e, ex);
+        backToExpenseMenu(ex);
     }
 
 
     // ------ HELPER FUNCTIONS ------//
+    // EFFECTS: takes a name and a list of people, and returns the first person found in the list of people with the
+    // given name.
     private Person findPersonWithName(String name, ArrayList<Person> people) throws PersonNotFoundException {
         for (Person p : people) {
             if (name.equals(p.getName())) {
@@ -422,18 +477,25 @@ public class SplitApp {
         throw new PersonNotFoundException();
     }
 
+    // EFFECTS: prints out a statement telling the user that there are currently no people in the given event, then
+    // prompts the user to add a person to the given event.
     private void noPeople(Event e) {
         System.out.println("You don't have any people in this event. "
                 + "You MUST add people before you can do anything else.");
-        forceAddPerson(e);
+        promptAddPerson(e);
     }
+
+    // EFFECTS: prints out a statement telling the user that a person with the name they entered does not exist in the
+    // given event, then prompts the user to add a person to the given event.
     private void fixPersonNotFound(Event e) {
         System.out.println("Cannot find a person with this name in the current event. "
                 + "You MUST create the person before adding them to any expenses");
-        forceAddPerson(e);
+        promptAddPerson(e);
     }
 
-    private void forceAddPerson(Event e) {
+    // EFFECTS: request user to choose between adding a person or going back to the event menu, then process the
+    // command received.
+    private void promptAddPerson(Event e) {
         System.out.println("You can do one of the following:");
         System.out.println("\ta -> add a person now.");
         System.out.println("\tb -> go back to the event menu.");
@@ -445,24 +507,29 @@ public class SplitApp {
         }
     }
 
+    // EFFECTS: prints out statement telling the user their selection was invalid.
     private void invalidCommand() {
         System.out.println("That was not one of the many options I've given you.");
         System.out.println("You obviously cannot follow instructions... "
                 + "So you get taken back to the main screen.");
     }
 
+    // EFFECTS: takes the user back to the event menu of the given event after any keyboard input.
     private void backToEventMenu(Event e) {
         System.out.println("Press any key to go back to the event menu.");
         input.next();
         modifyEvent(e);
     }
 
-    private void backToExpenseMenu(Event e, Expense ex) {
+    // EFFECTS: takes the user back to the expense menu of the given expense after any keyboard input.
+    private void backToExpenseMenu(Expense ex) {
         System.out.println("Press any key to go back to the expense menu.");
         input.next();
-        modifyExpense(e, ex);
+        modifyExpense(ex);
     }
 
+    // EFFECTS: initializes the splitter app with an empty list of events, an input representing the keyboard input,
+    // and delimiter "\n".
     private void initialize() {
         events = new ArrayList<>();
         input = new Scanner(System.in);

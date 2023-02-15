@@ -11,7 +11,7 @@
       <list>
         <ConfigurationLocation id="bundled-sun-checks" type="BUNDLED" scope="All" description="Sun Checks">(bundled)</ConfigurationLocation>
         <ConfigurationLocation id="bundled-google-checks" type="BUNDLED" scope="All" description="Google Checks">(bundled)</ConfigurationLocation>
-        <ConfigurationLocation id="61a994b7-bfe1-471c-9423-8363395716f7" type="PROJECT_RELATIVE" scope="All" description="CPSC 210 Checkstyle">$PROJECT_DIR$/checkstyle.xml</ConfigurationLocation>
+        <ConfigurationLocation id="07d4eb91-001f-4516-a4ac-19487bf7a015" type="PROJECT_RELATIVE" scope="All" description="CPSC 210 Checkstyle">$PROJECT_DIR$/checkstyle.xml</ConfigurationLocation>
       </list>
     </option>
   </component>

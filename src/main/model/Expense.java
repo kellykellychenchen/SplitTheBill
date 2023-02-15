@@ -9,6 +9,7 @@ public class Expense {
     private int amount;
     private Person paidBy;
     private ArrayList<Person> sharedBy;
+    private Event fromEvent;
 
     // EFFECTS: constructs an expense with the given expense name, given integer representing the amount of the expense,
     // a given Person who paid for this expense, and a given list of people that the cost of this expense is shared
@@ -18,6 +19,7 @@ public class Expense {
         this.amount = amount;
         this.paidBy = paidBy;
         this.sharedBy = sharedBy;
+        this.fromEvent = null;
     }
 
     // EFFECTS: returns an integer representing the shared cost per person by dividing the expense cost evenly amongst
@@ -27,27 +29,33 @@ public class Expense {
     }
 
     // MODIFIES: this
-    // EFFECTS: re-names the expense with the given name.
+    // EFFECTS: sets the name of the expense with the given name.
     public void setExpenseName(String expNam) {
         this.expenseName = expNam;
     }
 
     // MODIFIES: this
-    // EFFECTS: re-sets the expense amount with the given amount.
+    // EFFECTS: sets the expense amount with the given amount.
     public void setAmount(int amount) {
         this.amount = amount;
     }
 
     // MODIFIES: this
-    // EFFECTS: re-sets the person who paid for this expense with the given person.
+    // EFFECTS: sets the person who paid for this expense with the given person.
     public void setPaidBy(Person paidBy) {
         this.paidBy = paidBy;
     }
 
     // MODIFIES: this
-    // EFFECTS: re-sets the list of people that share this expense with the new list of people.
+    // EFFECTS: sets the list of people that share this expense with the new list of people.
     public void setSharedBy(ArrayList<Person> sharedBy) {
         this.sharedBy = sharedBy;
+    }
+
+    // MODIFIES: this
+    // EFFECTS: sets the event that this expense is from with the given event.
+    public void setFromEvent(Event e) {
+        this.fromEvent = e;
     }
 
     // EFFECTS: returns the name of this expense.
@@ -70,5 +78,8 @@ public class Expense {
         return this.sharedBy;
     }
 
-
+    // EFFECTS: returns the event that this expense is from.
+    public Event getFromEvent() {
+        return this.fromEvent;
+    }
 }
