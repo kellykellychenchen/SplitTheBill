@@ -17,38 +17,37 @@ public class Event {
     }
 
     // MODIFIES: this.
-    // EFFECTS: re-names an event with the given name.
+    // EFFECTS: resets the name of this event with the given name.
     public void setEventName(String eventName) {
         this.eventName = eventName;
     }
 
     // MODIFIES: this and person p.
-    // EFFECTS: adds a given person to the event's people list. also adds the current event to that person's event list.
+    // EFFECTS: adds a given person to this event's people list, and adds this event to the given person's events list.
     public void addPerson(Person p) {
         people.add(p);
         p.addEvent(this);
     }
 
     // MODIFIES: this and expense ex.
-    // EFFECTS: adds a given expense to the event's expense list.
+    // EFFECTS: adds a given expense to the event's expense list, and sets the given expense's fromEvent to this event.
     public void addExpense(Expense ex) {
         expenses.add(ex);
         ex.setFromEvent(this);
     }
 
-    // EFFECTS: returns an integer representing the total cost of all expenses in this event.
-    public int calcTotalCost() {
-        int result = 0;
+    // EFFECTS: returns a number representing the total cost of all expenses in this event.
+    public double calcTotalCost() {
+        double result = 0;
         for (Expense e : this.expenses) {
             result += e.getAmount();
         }
         return result;
     }
 
-    // EFFECTS: takes a person p and returns an integer representing the total amount of all expense that were paid by
-    // the given person in this event.
-    public int calcTotalPaidByPerson(Person p) {
-        int result = 0;
+    // EFFECTS: returns a number representing the total amount of all expense paid by the given person in this event.
+    public double calcTotalPaidByPerson(Person p) {
+        double result = 0;
         for (Expense e : expenses) {
             if (e.getPaidBy() == p) {
                 result += e.getAmount();
@@ -57,10 +56,9 @@ public class Event {
         return result;
     }
 
-    // EFFECTS: takes a person p and returns an integer representing the total amount of shared costs that are shared by
-    // the given person in this event.
-    public int calcTotalSharedByPerson(Person p) {
-        int result = 0;
+    // EFFECTS: returns a number representing the total amount of shared costs shared by the given person in this event.
+    public double calcTotalSharedByPerson(Person p) {
+        double result = 0;
         for (Expense e : expenses) {
             if (e.getSharedBy().contains(p)) {
                 result += e.splitAmount();
@@ -69,11 +67,9 @@ public class Event {
         return result;
     }
 
-    // EFFECTS: takes a person p and returns an integer representing the total balance of the given person in this
-    // event. A positive amount indicates the person has paid more than his share and is entitled to receive this
-    // amount from other people in this event. A negative amount means this person has paid for less than his share and
-    // owes that amount to other people in this event.
-    public int calcBalance(Person p) {
+    // EFFECTS: returns a number representing the total balance of the given person in this event. A positive number
+    // means they should receive this amount from others. A negative number means the amount they owe to others.
+    public double calcBalance(Person p) {
         return calcTotalPaidByPerson(p) - calcTotalSharedByPerson(p);
     }
 

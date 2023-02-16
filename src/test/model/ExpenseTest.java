@@ -9,6 +9,7 @@ import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
+// Tests for methods in the expense class.
 public class ExpenseTest {
     Event event1;
     Event event2;

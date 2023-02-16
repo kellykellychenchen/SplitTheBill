@@ -19,30 +19,27 @@ public class Person {
         this.events.add(e);
     }
 
-    // EFFECTS: returns an integer representing the total amount paid by this person across all events that this person
-    // is associated with.
-    public int calcTotalPaid() {
-        int paid = 0;
+    // EFFECTS: returns the total amount paid by this person across all events that this person is associated with.
+    public double calcTotalPaid() {
+        double paid = 0;
         for (Event e : events) {
             paid += e.calcTotalPaidByPerson(this);
         }
         return paid;
     }
 
-    // EFFECTS: returns an integer representing the total amount shared by this person across all events that this
-    // person is associated with.
-    public int calcTotalShared() {
-        int shared = 0;
+    // EFFECTS: returns the total amount shared by this person across all events that this person is associated with.
+    public double calcTotalShared() {
+        double shared = 0;
         for (Event e : events) {
             shared += e.calcTotalSharedByPerson(this);
         }
         return shared;
     }
 
-    // EFFECTS: returns an integer representing the total balance for this person across all events that this person is
-    // associated with. A positive amount indicates the person is entitled to receive this amount from others. A
-    // negative amount means this person owes that amount to others.
-    public int calcTotalBalance() {
+    // EFFECTS: returns the total balance for this person across all events. A positive number means this person should
+    // receive that amount from others. A negative number means this person owes that amount to others.
+    public double calcTotalBalance() {
         return this.calcTotalPaid() - this.calcTotalShared();
     }
 

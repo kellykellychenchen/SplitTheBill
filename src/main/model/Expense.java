@@ -6,15 +6,14 @@ import java.util.ArrayList;
 // people that share the cost of this expense.
 public class Expense {
     private String expenseName;
-    private int amount;
+    private double amount;
     private Person paidBy;
     private ArrayList<Person> sharedBy;
     private Event fromEvent;
 
-    // EFFECTS: constructs an expense with the given expense name, given integer representing the amount of the expense,
-    // a given Person who paid for this expense, and a given list of people that the cost of this expense is shared
-    // between.
-    public Expense(String expenseName, int amount, Person paidBy, ArrayList<Person> sharedBy) {
+    // EFFECTS: constructs an expense with the given expense name, given amount of the cost, a given Person that paid
+    // for this expense, and a given list of people that the cost of this expense is to be shared amongst.
+    public Expense(String expenseName, double amount, Person paidBy, ArrayList<Person> sharedBy) {
         this.expenseName = expenseName;
         this.amount = amount;
         this.paidBy = paidBy;
@@ -22,9 +21,9 @@ public class Expense {
         this.fromEvent = null;
     }
 
-    // EFFECTS: returns an integer representing the shared cost per person by dividing the expense cost evenly amongst
-    // the list of people who shares this cost.
-    public int splitAmount() {
+    // EFFECTS: returns a number representing the shared cost per person by dividing the expense cost evenly amongst
+    // the list of people who share this cost.
+    public double splitAmount() {
         return amount / sharedBy.size();
     }
 
@@ -36,7 +35,7 @@ public class Expense {
 
     // MODIFIES: this
     // EFFECTS: sets the expense amount with the given amount.
-    public void setAmount(int amount) {
+    public void setAmount(double amount) {
         this.amount = amount;
     }
 
@@ -63,8 +62,8 @@ public class Expense {
         return this.expenseName;
     }
 
-    // EFFECTS: returns an integer representing the cost of this expense.
-    public int getAmount() {
+    // EFFECTS: returns the cost of this expense.
+    public double getAmount() {
         return this.amount;
     }
 

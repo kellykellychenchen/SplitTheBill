@@ -7,6 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
+// Tests for methods in the person class.
 public class PersonTest {
     Event event1;
     Event event2;
