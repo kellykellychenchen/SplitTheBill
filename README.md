@@ -40,4 +40,6 @@ convenient to manage cost splitting amongst friends and families.
 list of *people who should share this cost*.
 - As a user, I want to be able to select an **event** and view the *total cost*, total *amount paid by each individual*, 
 total *share of costs for each individual*, and the *outstanding balance* for each individual.
-
+- As a user, when I select the quit option from the application menu, I want to be *reminded* to save my bill book to
+file and have the *option* to do so or not. 
+- As a user, when I start the application, I want to be given the *option* to load my saved bill book from file.
