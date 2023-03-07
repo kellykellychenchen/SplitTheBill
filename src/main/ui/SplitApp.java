@@ -1,5 +1,7 @@
 package ui;
 
+import model.BillBook;
+import persistence.JsonReader;
 import ui.exceptions.InvalidSelectionException;
 import ui.exceptions.PersonNotFoundException;
 import model.Event;
@@ -15,9 +17,14 @@ import static java.lang.Math.abs;
 public class SplitApp {
     private ArrayList<Event> events;
     private Scanner input;
+    private BillBook billBook;
 
     // EFFECTS: starts the splitter application.
     public SplitApp() {
+        input = new Scanner(System.in);
+        billBook = new BillBook("Alex's workroom");
+        //TODO: = new JsonWriter(JSON_STORE);
+        //TODO: jsonReader = new JsonReader(JSON_STORE);
         runSplitter();
     }
 

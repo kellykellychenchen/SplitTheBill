@@ -1,10 +1,13 @@
 package model;
 
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Event class represents an event with an event name, a list of people that participated in the event, and list of
 // expenses associated with the event.
-public class Event {
+public class Event implements Writable {
     private String eventName;
     private ArrayList<Person> people;
     private ArrayList<Expense> expenses;
@@ -88,4 +91,13 @@ public class Event {
         return expenses;
     }
 
+    // TODO: document
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", eventName);
+        json.put("people", people);
+        json.put("expenses", expenses);
+        return json;
+    }
 }
