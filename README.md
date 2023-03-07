@@ -43,3 +43,7 @@ total *share of costs for each individual*, and the *outstanding balance* for ea
 - As a user, when I select the quit option from the application menu, I want to be *reminded* to save my bill book to
 file and have the *option* to do so or not. 
 - As a user, when I start the application, I want to be given the *option* to load my saved bill book from file.
+
+## Citations
+The data-persistence design of this project is adapted from the persistence package in the JsonSerializationDemo
+project which can be accessed at this link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
