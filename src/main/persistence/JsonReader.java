@@ -15,6 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Stream;
 
+// Represents a reader that reads workroom from JSON data stored in file
 public class JsonReader {
     private String source;
 
@@ -46,77 +47,89 @@ public class JsonReader {
     private BillBook parseBillBook(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         BillBook bb = new BillBook(name);
-        addEvents(bb, jsonObject);
+        addEventsToBillBook(bb, jsonObject);
         return bb;
     }
 
     // MODIFIES: bb
     // EFFECTS: parse events from JSON object and adds them to billbook
-    private void addEvents(BillBook bb, JSONObject jsonObject) {
+    private void addEventsToBillBook(BillBook bb, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("events");
         for (Object json : jsonArray) {
             JSONObject nextEvent = (JSONObject) json;
-            addEvent(bb, nextEvent);
+            addEventToBillBook(bb, nextEvent);
         }
     }
 
     // MODIFIES: bb
     // EFFECTS: parse event from JSON object and add it to billbook
-    private void addEvent(BillBook bb, JSONObject jsonObject) {
+    private void addEventToBillBook(BillBook bb, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
-        Event event = new Event("name");
+        Event event = new Event(name);
         addPeopleToEvent(event, jsonObject);
         addExpensesToEvent(event, jsonObject);
         bb.addEvent(event);
     }
 
+    // MODIFIES: event
+    // EFFECTS: parse people from JSON object and adds them to event
     private void addPeopleToEvent(Event event, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("people");
-        for (Object json: jsonArray) {
+        for (Object json : jsonArray) {
             JSONObject nextPerson = (JSONObject) json;
             addPersonToEvent(event, nextPerson);
         }
     }
 
+    // MODIFIES: event
+    // EFFECTS: parse person from JSON object and add it to event
     private void addPersonToEvent(Event event, JSONObject jsonObject) {
-        Person person = getPerson(jsonObject);
+        Person person = parsePerson(jsonObject);
         event.addPerson(person);
     }
 
+    // MODIFIES: event
+    // EFFECTS: parse expenses from JSON object and adds them to event
     private void addExpensesToEvent(Event event, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("expenses");
-        for (Object json: jsonArray) {
+        for (Object json : jsonArray) {
             JSONObject nextExpense = (JSONObject) json;
             addExpenseToEvent(event, nextExpense);
         }
     }
 
+    // MODIFIES: event
+    // EFFECTS: parse expense from JSON object and add it to event
     private void addExpenseToEvent(Event event, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Double amount = jsonObject.getDouble("amount");
-        Person paidBy = getPerson((JSONObject) jsonObject.get("paidBy"));
+        Person paidBy = parsePerson((JSONObject) jsonObject.get("paidBy"));
         ArrayList sharedBy = new ArrayList<>();
-        addPeopleToExpense(sharedBy, jsonObject);
+        addPeopleToSharedBy(sharedBy, jsonObject);
 
-        Expense expense = new Expense(name,amount,paidBy,sharedBy);
+        Expense expense = new Expense(name, amount, paidBy, sharedBy);
         event.addExpense(expense);
     }
 
-    private void addPeopleToExpense(List people, JSONObject jsonObject) {
+    // MODIFIES: sharedBy
+    // EFFECTS: parse people from JSON object and adds them to sharedBy
+    private void addPeopleToSharedBy(List sharedBy, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("sharedBy");
-        for (Object json: jsonArray) {
+        for (Object json : jsonArray) {
             JSONObject nextPerson = (JSONObject) json;
-            addPersonToList(people, nextPerson);
+            addPersonToSharedBy(sharedBy, nextPerson);
         }
     }
-
-    private void addPersonToList(List people, JSONObject jsonObject) {
-        Person person = getPerson(jsonObject);
-        people.add(person);
+    
+    // MODIFIES: sharedBy
+    // EFFECTS: parse person from JSON object and adds them to sharedBy
+    private void addPersonToSharedBy(List sharedBy, JSONObject jsonObject) {
+        Person person = parsePerson(jsonObject);
+        sharedBy.add(person);
     }
 
-    // PARSE PERSON CLASS
-    private Person getPerson(JSONObject jsonObject) {
+    // EFFECTS: parse person from JSON object and returns it as Person
+    private Person parsePerson(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         Double totalPaid = jsonObject.getDouble("totalPaid");
         Double totalShared = jsonObject.getDouble("totalShared");

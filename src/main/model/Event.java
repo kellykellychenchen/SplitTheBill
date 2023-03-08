@@ -20,25 +20,19 @@ public class Event implements Writable {
         this.expenses = new ArrayList<>();
     }
 
-    // MODIFIES: this.
-    // EFFECTS: resets the name of this event with the given name.
-    public void setEventName(String eventName) {
-        this.eventName = eventName;
-    }
-
     // MODIFIES: this
     // EFFECTS: adds a given person to this event's people list.
     public void addPerson(Person p) {
         people.add(p);
     }
 
-    // MODIFIES: this and expense ex.
+    // MODIFIES: this
     // EFFECTS: adds a given expense to the event's expense list.
     public void addExpense(Expense ex) {
         expenses.add(ex);
     }
 
-    // EFFECTS: returns a number representing the total cost of all expenses in this event.
+    // EFFECTS: returns the total cost of all expenses in this event.
     public double calcTotalCost() {
         double result = 0;
         for (Expense e : this.expenses) {
@@ -47,16 +41,21 @@ public class Event implements Writable {
         return result;
     }
 
+    // MODIFIES: this
+    // EFFECTS: recalculates the balance of all people in this event with the current list of expenses.
+    public void reCalculateBalance() {
+        for (Person p : this.people) {
+            calcPersonBalance(p);
+        }
+    }
+
     // MODIFIES: Person p
-    // EFFECTS: calculates the total amount of all expense paid by the given person p in this event and set p's
-    // totalPaid to the resulting amount.
-    // EFFECTS: calculates the total amount of shared costs shared by the given person p in this event and set p's
-    // totalShared to the resulting amount.
-    //TODO: change documentation
+    // EFFECTS: calculates the total amount paid by p, total amount shared by p, and p's balance based on the current
+    // list of expenses in this event and sets p's totalPaid, totalShared, and balance fields accordingly.
     public void calcPersonBalance(Person p) {
         double paid = 0;
         for (Expense e : expenses) {
-            if (e.getPaidBy() == p) {
+            if (e.getPaidBy().equals(p)) {
                 paid += e.getAmount();
             }
         }
@@ -70,25 +69,26 @@ public class Event implements Writable {
         }
         p.setTotalShared(shared);
 
-        p.setBalance(paid-shared);
+        p.setBalance(paid - shared);
     }
 
-    // EFFECTS: returns a string representing the event's name.
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
+    }
+
     public String getEventName() {
         return eventName;
     }
 
-    // EFFECTS: returns an array list representing the list of people associated with this event.
     public ArrayList<Person> getPeople() {
         return people;
     }
 
-    // EFFECTS: returns an array list representing the list of expenses associated with this event.
     public ArrayList<Expense> getExpenses() {
         return expenses;
     }
 
-    // TODO: document
+    // EFFECTS: Returns this event as a JSON object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -98,6 +98,7 @@ public class Event implements Writable {
         return json;
     }
 
+    // EFFECTS: Returns the list of people in this event as a JSON array.
     private JSONArray peopleToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Person person : people) {
@@ -106,6 +107,7 @@ public class Event implements Writable {
         return jsonArray;
     }
 
+    // EFFECTS: Returns the list of expenses in this event as a JSON array.
     private JSONArray expensesToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Expense expense : expenses) {
@@ -113,5 +115,4 @@ public class Event implements Writable {
         }
         return jsonArray;
     }
-
 }

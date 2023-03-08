@@ -6,14 +6,14 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// Person represents a person who participate in events and pays/shares the cost of expenses in that event.
+// Person class represents a person with a name, amount paid, amount shared, and amount balance.
 public class Person implements Writable {
     private String name;
     private Double totalPaid;
     private Double totalShared;
     private Double balance;
 
-    // EFFECTS: constructs a person with the given name and an empty list of events.
+    // EFFECTS: constructs a person with the given name and zero as the initial amount paid, shared, and balance.
     public Person(String name) {
         this.name = name;
         this.totalPaid = 0.0;
@@ -53,6 +53,7 @@ public class Person implements Writable {
         return balance;
     }
 
+    // EFFECTS: Returns this person as a JSON object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();

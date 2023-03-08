@@ -6,8 +6,8 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// Expense represents an expense which has an expense name, an amount, a person who paid for the expense, and a list of
-// people that share the cost of this expense.
+// Expense class represents an expense with an expense name, expense amount, a person who paid for the expense, and
+// a list of people that share the cost of the expense.
 public class Expense implements Writable {
     private String expenseName;
     private double amount;
@@ -23,56 +23,45 @@ public class Expense implements Writable {
         this.sharedBy = sharedBy;
     }
 
-    // EFFECTS: returns a number representing the shared cost per person by dividing the expense cost evenly amongst
-    // the list of people who share this cost.
+    // EFFECTS: returns the shared cost per person by dividing the expense cost evenly amongst the list of people who
+    // share this cost.
     public double splitAmount() {
         return amount / sharedBy.size();
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the name of the expense with the given name.
     public void setExpenseName(String expNam) {
         this.expenseName = expNam;
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the expense amount with the given amount.
     public void setAmount(double amount) {
         this.amount = amount;
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the person who paid for this expense with the given person.
     public void setPaidBy(Person paidBy) {
         this.paidBy = paidBy;
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the list of people that share this expense with the new list of people.
     public void setSharedBy(ArrayList<Person> sharedBy) {
         this.sharedBy = sharedBy;
     }
 
-    // EFFECTS: returns the name of this expense.
     public String getExpenseName() {
         return this.expenseName;
     }
 
-    // EFFECTS: returns the cost of this expense.
     public double getAmount() {
         return this.amount;
     }
 
-    // EFFECTS: returns the person that paid for this expense.
     public Person getPaidBy() {
         return this.paidBy;
     }
 
-    // EFFECTS: returns the list of people that share this expense.
     public ArrayList<Person> getSharedBy() {
         return this.sharedBy;
     }
 
+    // EFFECTS: Returns this expense as a JSON object.
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -84,6 +73,7 @@ public class Expense implements Writable {
         return json;
     }
 
+    // EFFECTS: Returns people that share the cost of this expense as a JSON array.
     private JSONArray sharedByToJson() {
         JSONArray jsonArray = new JSONArray();
         for (Person person : sharedBy) {
@@ -91,5 +81,4 @@ public class Expense implements Writable {
         }
         return jsonArray;
     }
-
 }

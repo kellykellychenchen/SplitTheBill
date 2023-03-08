@@ -2,7 +2,8 @@ package persistence;
 
 import org.json.JSONObject;
 
+// Writable is an interface of classes that can be written to file as JSONObjects.
 public interface Writable {
-    // a method called toJson() that returns type JSONObject
+    // EFFECTS: Returns the current object as a JSONObject.
     JSONObject toJson();
 }
