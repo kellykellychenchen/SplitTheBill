@@ -234,10 +234,8 @@ public class SplitApp {
     private double promptExpenseAmount() {
         System.out.println("How much did this expense cost? Enter a number.");
         double amount = input.nextDouble();
-        if (amount >= 1000 && amount < 10000) {
+        if (amount >= 10000) {
             System.out.println("wow that's expensive..");
-        } else if (amount >= 10000) {
-            System.out.println("WOW u must be rich... can i be friends with u pls? jk..");
         }
         return amount;
     }
@@ -318,8 +316,9 @@ public class SplitApp {
             noPeople(e);
         } else {
             for (Person p : e.getPeople()) {
+                e.calcPersonBalance(p);
                 System.out.println(p.getName() + " has paid a total of $"
-                        + String.format("%.2f", e.calcTotalPaidByPerson(p)) + " in this event.");
+                        + String.format("%.2f", p.getTotalPaid()) + " in this event.");
             }
             backToEventMenu(e);
         }
@@ -332,8 +331,9 @@ public class SplitApp {
             noPeople(e);
         } else {
             for (Person p : e.getPeople()) {
+                e.calcPersonBalance(p);
                 System.out.println(p.getName() + " shares a total of $"
-                        + String.format("%.2f", e.calcTotalSharedByPerson(p)) + " in this event.");
+                        + String.format("%.2f", p.getTotalShared()) + " in this event.");
             }
             backToEventMenu(e);
         }
@@ -346,7 +346,8 @@ public class SplitApp {
             noPeople(e);
         } else {
             for (Person p : e.getPeople()) {
-                double balance = e.calcBalance(p);
+                e.calcPersonBalance(p);
+                double balance = p.getBalance();
                 if (balance <= 0) {
                     balance = abs(balance);
                     System.out.println(p.getName() + " owes $" + String.format("%.2f", balance));

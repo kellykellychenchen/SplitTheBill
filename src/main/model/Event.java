@@ -26,11 +26,10 @@ public class Event implements Writable {
         this.eventName = eventName;
     }
 
-    // MODIFIES: this and person p.
-    // EFFECTS: adds a given person to this event's people list, and adds this event to the given person's events list.
+    // MODIFIES: this
+    // EFFECTS: adds a given person to this event's people list.
     public void addPerson(Person p) {
         people.add(p);
-        p.addEvent(this);
     }
 
     // MODIFIES: this and expense ex.
@@ -49,32 +48,30 @@ public class Event implements Writable {
         return result;
     }
 
-    // EFFECTS: returns a number representing the total amount of all expense paid by the given person in this event.
-    public double calcTotalPaidByPerson(Person p) {
-        double result = 0;
+    // MODIFIES: Person p
+    // EFFECTS: calculates the total amount of all expense paid by the given person p in this event and set p's
+    // totalPaid to the resulting amount.
+    // EFFECTS: calculates the total amount of shared costs shared by the given person p in this event and set p's
+    // totalShared to the resulting amount.
+    //TODO: change documentation
+    public void calcPersonBalance(Person p) {
+        double paid = 0;
         for (Expense e : expenses) {
             if (e.getPaidBy() == p) {
-                result += e.getAmount();
+                paid += e.getAmount();
             }
         }
-        return result;
-    }
+        p.setTotalPaid(paid);
 
-    // EFFECTS: returns a number representing the total amount of shared costs shared by the given person in this event.
-    public double calcTotalSharedByPerson(Person p) {
-        double result = 0;
+        double shared = 0;
         for (Expense e : expenses) {
             if (e.getSharedBy().contains(p)) {
-                result += e.splitAmount();
+                shared += e.splitAmount();
             }
         }
-        return result;
-    }
+        p.setTotalShared(shared);
 
-    // EFFECTS: returns a number representing the total balance of the given person in this event. A positive number
-    // means they should receive this amount from others. A negative number means the amount they owe to others.
-    public double calcBalance(Person p) {
-        return calcTotalPaidByPerson(p) - calcTotalSharedByPerson(p);
+        p.setBalance(paid-shared);
     }
 
     // EFFECTS: returns a string representing the event's name.

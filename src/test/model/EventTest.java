@@ -33,7 +33,7 @@ class EventTest {
         lop1.add(p1);
         lop2 = new ArrayList<>();
         lop2.add(p2);
-        exp1 = new Expense("s1", 100, p1, lop);
+        exp1 = new Expense("s1", 102, p1, lop);
         exp2 = new Expense("s2", 200, p2, lop1);
         exp3 = new Expense("s3", 300, p1, lop2);
     }
@@ -53,24 +53,18 @@ class EventTest {
 
     @Test
     public void testAddPerson() {
-        assertEquals(0, p1.getEvents().size());
         event1.addPerson(p1);
         assertEquals(1, event1.getPeople().size());
         assertEquals(p1, event1.getPeople().get(0));
-        assertEquals(1, p1.getEvents().size());
-        assertEquals(event1, p1.getEvents().get(0));
 
         event2.addPerson(p1);
-        assertEquals(2, p1.getEvents().size());
-        assertEquals(event1, p1.getEvents().get(0));
-        assertEquals(event2, p1.getEvents().get(1));
+        assertEquals(1, event2.getPeople().size());
+        assertEquals(p1, event2.getPeople().get(0));
 
         event1.addPerson(p2);
         assertEquals(2, event1.getPeople().size());
         assertEquals(p1, event1.getPeople().get(0));
         assertEquals(p2, event1.getPeople().get(1));
-        assertEquals(1, p2.getEvents().size());
-        assertEquals(event1, p2.getEvents().get(0));
     }
 
     @Test
@@ -91,63 +85,38 @@ class EventTest {
     public void testCalcTotal() {
         assertEquals(0, event1.calcTotalCost());
         event1.addExpense(exp1);
-        assertEquals(100, event1.calcTotalCost());
+        assertEquals(102, event1.calcTotalCost());
         event1.addExpense(exp2);
         event1.addExpense(exp3);
-        assertEquals(600, event1.calcTotalCost());
+        assertEquals(602, event1.calcTotalCost());
     }
 
     @Test
-    public void testCalcTotalPaidByPerson() {
-        assertEquals(0, event1.calcTotalPaidByPerson(p1));
-        assertEquals(0, event1.calcTotalPaidByPerson(p2));
+    public void testCalcPersonBalance() {
+        event1.calcPersonBalance(p1);
+        assertEquals(0, p1.getTotalPaid());
+        assertEquals(0, p1.getTotalShared());
 
         event1.addExpense(exp1);
-        assertEquals(100, event1.calcTotalPaidByPerson(p1));
-        assertEquals(0, event1.calcTotalPaidByPerson(p2));
+        event1.calcPersonBalance(p1);
+        assertEquals(102, p1.getTotalPaid());
+        assertEquals(51, p1.getTotalShared());
+        assertEquals(51, p1.getBalance());
 
         event1.addExpense(exp2);
-        assertEquals(100, event1.calcTotalPaidByPerson(p1));
-        assertEquals(200, event1.calcTotalPaidByPerson(p2));
+        event1.calcPersonBalance(p1);
+        assertEquals(102, p1.getTotalPaid());
+        assertEquals(251, p1.getTotalShared());
+        assertEquals(-149, p1.getBalance());
 
         event1.addExpense(exp3);
-        assertEquals(400, event1.calcTotalPaidByPerson(p1));
-        assertEquals(200, event1.calcTotalPaidByPerson(p2));
-    }
-
-    @Test
-    public void testCalcTotalSharedByPerson() {
-        assertEquals(0, event1.calcTotalSharedByPerson(p1));
-        assertEquals(0, event1.calcTotalSharedByPerson(p2));
-
-        event1.addExpense(exp1);
-        assertEquals(50, event1.calcTotalSharedByPerson(p1));
-        assertEquals(50, event1.calcTotalSharedByPerson(p2));
-
-        event1.addExpense(exp2);
-        assertEquals(250, event1.calcTotalSharedByPerson(p1));
-        assertEquals(50, event1.calcTotalSharedByPerson(p2));
-
-        event1.addExpense(exp3);
-        assertEquals(250, event1.calcTotalSharedByPerson(p1));
-        assertEquals(350, event1.calcTotalSharedByPerson(p2));
-    }
-
-    @Test
-    public void testCalcBalance() {
-        assertEquals(0, event1.calcBalance(p1));
-        assertEquals(0, event1.calcBalance(p2));
-
-        event1.addExpense(exp1);
-        assertEquals(50, event1.calcBalance(p1));
-        assertEquals(-50, event1.calcBalance(p2));
-
-        event1.addExpense(exp2);
-        assertEquals(-150, event1.calcBalance(p1));
-        assertEquals(150, event1.calcBalance(p2));
-
-        event1.addExpense(exp3);
-        assertEquals(150, event1.calcBalance(p1));
-        assertEquals(-150, event1.calcBalance(p2));
+        event1.calcPersonBalance(p1);
+        event1.calcPersonBalance(p2);
+        assertEquals(402, p1.getTotalPaid());
+        assertEquals(251, p1.getTotalShared());
+        assertEquals(200, p2.getTotalPaid());
+        assertEquals(351, p2.getTotalShared());
+        assertEquals(151, p1.getBalance());
+        assertEquals(-151, p2.getBalance());
     }
 }
