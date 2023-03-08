@@ -1,9 +1,13 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Person represents a person who participate in events and pays/shares the cost of expenses in that event.
-public class Person {
+public class Person implements Writable {
     private String name;
     private ArrayList<Event> events;
 
@@ -57,5 +61,21 @@ public class Person {
     // EFFECTS: returns the list of events that this person is associated with.
     public ArrayList<Event> getEvents() {
         return this.events;
+    }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", name);
+        json.put("events", eventsToJson());
+        return json;
+    }
+
+    private JSONArray eventsToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Event event : events) {
+            jsonArray.put(event.toJson());
+        }
+        return jsonArray;
     }
 }

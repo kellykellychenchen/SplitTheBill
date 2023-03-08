@@ -1,10 +1,14 @@
 package model;
 
+import org.json.JSONArray;
+import org.json.JSONObject;
+import persistence.Writable;
+
 import java.util.ArrayList;
 
 // Expense represents an expense which has an expense name, an amount, a person who paid for the expense, and a list of
 // people that share the cost of this expense.
-public class Expense {
+public class Expense implements Writable {
     private String expenseName;
     private double amount;
     private Person paidBy;
@@ -81,4 +85,25 @@ public class Expense {
     public Event getFromEvent() {
         return this.fromEvent;
     }
+
+    @Override
+    public JSONObject toJson() {
+        JSONObject json = new JSONObject();
+        json.put("name", expenseName);
+        json.put("amount", amount);
+        json.put("paidBy", paidBy.toJson());
+        json.put("sharedBy", sharedByToJson());
+        json.put("fromEvent", fromEvent.toJson());
+
+        return json;
+    }
+
+    private JSONArray sharedByToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Person person : sharedBy) {
+            jsonArray.put(person.toJson());
+        }
+        return jsonArray;
+    }
+
 }

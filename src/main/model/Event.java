@@ -1,5 +1,6 @@
 package model;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 import persistence.Writable;
 
@@ -96,8 +97,31 @@ public class Event implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", eventName);
-        json.put("people", people);
-        json.put("expenses", expenses);
+        json.put("people", peopleToJson());
+        json.put("expenses", expensesToJson());
         return json;
     }
+
+    private JSONArray peopleToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Person person : people) {
+            jsonArray.put(person.toJson());
+        }
+        return jsonArray;
+    }
+
+    private JSONArray expensesToJson() {
+        JSONArray jsonArray = new JSONArray();
+        for (Expense expense : expenses) {
+            jsonArray.put(expense.toJson());
+        }
+        return jsonArray;
+    }
+
+
+
+
+
+
+
 }

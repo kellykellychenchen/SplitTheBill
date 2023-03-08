@@ -2,12 +2,15 @@ package ui;
 
 import model.BillBook;
 import persistence.JsonReader;
+import persistence.JsonWriter;
 import ui.exceptions.InvalidSelectionException;
 import ui.exceptions.PersonNotFoundException;
 import model.Event;
 import model.Expense;
 import model.Person;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Scanner;
 
@@ -16,15 +19,18 @@ import static java.lang.Math.abs;
 // SplitApp includes the console-based user interface for using the Split The Bill application.
 public class SplitApp {
     private ArrayList<Event> events;
+    private static final String JSON_STORE = "./data/billbook.json";
     private Scanner input;
     private BillBook billBook;
+    private JsonWriter jsonWriter;
+    private JsonReader jsonReader;
 
     // EFFECTS: starts the splitter application.
-    public SplitApp() {
+    public SplitApp() throws FileNotFoundException {
         input = new Scanner(System.in);
         billBook = new BillBook("Alex's workroom");
-        //TODO: = new JsonWriter(JSON_STORE);
-        //TODO: jsonReader = new JsonReader(JSON_STORE);
+        jsonWriter = new JsonWriter(JSON_STORE);
+        jsonReader = new JsonReader(JSON_STORE);
         runSplitter();
     }
 
@@ -522,6 +528,31 @@ public class SplitApp {
         events = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+    }
+
+
+    // ------ PERSISTENCE ------//
+    // EFFECTS: saves billbook to file
+    private void saveBillBook() {
+        try {
+            jsonWriter.open();
+            jsonWriter.write(billBook);
+            jsonWriter.close();
+            System.out.println("Saved " + billBook.getName() + " to " + JSON_STORE);
+        } catch (FileNotFoundException e) {
+            System.out.println("Unable to write to file: " + JSON_STORE);
+        }
+    }
+
+    // MODIFIES: this
+    // EFFECTS: loads billbook from file
+    private void loadBillBook() {
+        try {
+            billBook = jsonReader.read();
+            System.out.println("Loaded " + billBook.getName() + " from " + JSON_STORE);
+        } catch (IOException e) {
+            System.out.println("Unable to read from file: " + JSON_STORE);
+        }
     }
 
 }
