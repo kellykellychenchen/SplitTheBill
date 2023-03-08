@@ -33,10 +33,9 @@ public class Event implements Writable {
     }
 
     // MODIFIES: this and expense ex.
-    // EFFECTS: adds a given expense to the event's expense list, and sets the given expense's fromEvent to this event.
+    // EFFECTS: adds a given expense to the event's expense list.
     public void addExpense(Expense ex) {
         expenses.add(ex);
-        ex.setFromEvent(this);
     }
 
     // EFFECTS: returns a number representing the total cost of all expenses in this event.
@@ -114,11 +113,5 @@ public class Event implements Writable {
         }
         return jsonArray;
     }
-
-
-
-
-
-
 
 }

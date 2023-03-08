@@ -72,13 +72,11 @@ class EventTest {
         event1.addExpense(exp1);
         assertEquals(1, event1.getExpenses().size());
         assertEquals(exp1, event1.getExpenses().get(0));
-        assertEquals(event1, exp1.getFromEvent());
 
         event1.addExpense(exp2);
         assertEquals(2, event1.getExpenses().size());
         assertEquals(exp1, event1.getExpenses().get(0));
         assertEquals(exp2, event1.getExpenses().get(1));
-        assertEquals(event1, exp2.getFromEvent());
     }
 
     @Test

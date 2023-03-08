@@ -13,7 +13,6 @@ public class Expense implements Writable {
     private double amount;
     private Person paidBy;
     private ArrayList<Person> sharedBy;
-    private Event fromEvent;
 
     // EFFECTS: constructs an expense with the given expense name, given amount of the cost, a given Person that paid
     // for this expense, and a given list of people that the cost of this expense is to be shared amongst.
@@ -22,7 +21,6 @@ public class Expense implements Writable {
         this.amount = amount;
         this.paidBy = paidBy;
         this.sharedBy = sharedBy;
-        this.fromEvent = null;
     }
 
     // EFFECTS: returns a number representing the shared cost per person by dividing the expense cost evenly amongst
@@ -55,12 +53,6 @@ public class Expense implements Writable {
         this.sharedBy = sharedBy;
     }
 
-    // MODIFIES: this
-    // EFFECTS: sets the event that this expense is from with the given event.
-    public void setFromEvent(Event e) {
-        this.fromEvent = e;
-    }
-
     // EFFECTS: returns the name of this expense.
     public String getExpenseName() {
         return this.expenseName;
@@ -81,11 +73,6 @@ public class Expense implements Writable {
         return this.sharedBy;
     }
 
-    // EFFECTS: returns the event that this expense is from.
-    public Event getFromEvent() {
-        return this.fromEvent;
-    }
-
     @Override
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
@@ -93,7 +80,6 @@ public class Expense implements Writable {
         json.put("amount", amount);
         json.put("paidBy", paidBy.toJson());
         json.put("sharedBy", sharedByToJson());
-        json.put("fromEvent", fromEvent.toJson());
 
         return json;
     }

@@ -57,7 +57,9 @@ public class Person implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        //TODO: other fields
+        json.put("totalPaid", totalPaid);
+        json.put("totalShared", totalShared);
+        json.put("balance", balance);
         return json;
     }
 

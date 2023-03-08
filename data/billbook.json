@@ -1,0 +1,62 @@
+{
+    "name": "Kelly's Bill Book",
+    "events": [{
+        "name": "event",
+        "people": [
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "kelly",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "bob",
+                "totalShared": 0
+            }
+        ],
+        "expenses": [
+            {
+                "amount": 200,
+                "paidBy": {
+                    "balance": 0,
+                    "totalPaid": 0,
+                    "name": "kelly",
+                    "totalShared": 0
+                },
+                "sharedBy": [{
+                    "balance": 0,
+                    "totalPaid": 0,
+                    "name": "bob",
+                    "totalShared": 0
+                }],
+                "name": "dinner"
+            },
+            {
+                "amount": 300,
+                "paidBy": {
+                    "balance": 0,
+                    "totalPaid": 0,
+                    "name": "bob",
+                    "totalShared": 0
+                },
+                "sharedBy": [
+                    {
+                        "balance": 0,
+                        "totalPaid": 0,
+                        "name": "bob",
+                        "totalShared": 0
+                    },
+                    {
+                        "balance": 0,
+                        "totalPaid": 0,
+                        "name": "kelly",
+                        "totalShared": 0
+                    }
+                ],
+                "name": "lunch"
+            }
+        ]
+    }]
+}

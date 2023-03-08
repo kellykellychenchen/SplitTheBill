@@ -18,7 +18,6 @@ import static java.lang.Math.abs;
 
 // SplitApp includes the console-based user interface for using the Split The Bill application.
 public class SplitApp {
-    private ArrayList<Event> events;
     private static final String JSON_STORE = "./data/billbook.json";
     private Scanner input;
     private BillBook billBook;
@@ -28,7 +27,7 @@ public class SplitApp {
     // EFFECTS: starts the splitter application.
     public SplitApp() throws FileNotFoundException {
         input = new Scanner(System.in);
-        billBook = new BillBook("Alex's workroom");
+        billBook = new BillBook("Kelly's Bill Book");
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         runSplitter();
@@ -52,14 +51,27 @@ public class SplitApp {
                 processCommand(command);
             }
         }
+        promptSave();
         System.out.println("Remember to pay your debts. GOODBYE");
+    }
+
+    // TODO: doc
+    private void promptSave() {
+        System.out.println("Would you like to save your data? Enter 'y' for yes or 'n' for no.");
+        String command = input.next();
+        command = command.toLowerCase();
+        if (command == "y") {
+            saveBillBook();
+        }
     }
 
     // EFFECTS: prints out the options in the main menu.
     private void displayMenu() {
         System.out.println("\nSelect from:");
         System.out.println("\tc -> Create a new event");
-        System.out.println("\ts -> Select from existing events");
+        System.out.println("\tx -> Select from existing events");
+        System.out.println("\ts -> Save billbook to file");
+        System.out.println("\tl -> Load billbook from file");
         System.out.println("\tq -> quit");
     }
 
@@ -67,15 +79,19 @@ public class SplitApp {
     private void processCommand(String command) {
         if (command.equals("c")) {
             createEvent();
-        } else if (command.equals("s")) {
-            if (events.isEmpty()) {
+        } else if (command.equals("x")) {
+            if (billBook.getEvents().isEmpty()) {
                 System.out.println("There are no existing events to choose from. You can add one now.");
                 createEvent();
             } else {
                 chooseEvent();
             }
+        } else if (command.equals("s"))  {
+            saveBillBook();
+        } else if (command.equals("l")) {
+            loadBillBook();
         } else {
-            System.out.println("No. Pick a letter from the list I gave you. It's not that hard. Try again.");
+            youAreWrongTryAgain();
         }
     }
 
@@ -85,9 +101,9 @@ public class SplitApp {
         System.out.println("What's the name of your new event?");
         String eventName = input.next();
         Event e = new Event(eventName);
-        events.add(e);
+        billBook.addEvent(e);
         System.out.println("A new event " + e.getEventName() + " has been created.");
-        modifyEvent(e);
+        runEvent(e);
     }
 
     // REQUIRES: user must enter an integer.
@@ -96,31 +112,47 @@ public class SplitApp {
         int i = 0;
         System.out.println("Choose from one of the following existing events. Your selection MUST be an integer or "
                 + "the universe will implode.");
-        for (Event e : events) {
+        for (Event e : billBook.getEvents()) {
             System.out.println("\t" + i + " -> " + e.getEventName());
             i++;
         }
         try {
             int selection = input.nextInt();
-            if (selection < 0 || selection >= events.size()) {
+            if (selection < 0 || selection >= billBook.getEvents().size()) {
                 throw new InvalidSelectionException();
             }
-            Event e = events.get(selection);
+            Event e = billBook.getEvents().get(selection);
             System.out.println("You have selected the " + e.getEventName() + " event.");
-            modifyEvent(e);
+            runEvent(e);
         } catch (InvalidSelectionException e) {
-            System.out.println("No. Pick from one of the numbers I gave you. Can you even count? Try again.");
+            youAreWrongTryAgain();
             chooseEvent();
         }
     }
 
-
     // ----- EVENT MENU ----- //
-    // EFFECTS: displays the menu options for the given event, prompt user for selection, and process the command.
-    private void modifyEvent(Event e) {
-        eventMenu();
-        String eventCommand = input.next().toLowerCase();
 
+    // TODO: DOC
+    private void runEvent(Event e) {
+        boolean keepGoing = true;
+        String command;
+
+        while (keepGoing) {
+            eventMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("b")) {
+                keepGoing = false;
+            } else {
+                modifyEvent(e, command);
+            }
+        }
+    }
+
+    // EFFECTS: displays the menu options for the given event, prompt user for selection, and process the command.
+    // TODO: update doc
+    private void modifyEvent(Event e, String eventCommand) {
         if (eventCommand.equals("p")) {
             addPerson(e);
         } else if (eventCommand.equals("e")) {
@@ -141,6 +173,8 @@ public class SplitApp {
             showSharedBy(e);
         } else if (eventCommand.equals("o")) {
             showBalance(e);
+        } else {
+            youAreWrongTryAgain();
         }
     }
 
@@ -155,7 +189,7 @@ public class SplitApp {
         System.out.println("\ta -> View the amount paid by each person in this event");
         System.out.println("\ts -> View the cost to be shared by each person in this event");
         System.out.println("\to -> View the outstanding balance for each person in this event");
-        System.out.println("Press anything else to go back to the main menu.");
+        System.out.println("Press 'b' to go back to the main menu.");
     }
 
     // MODIFIES: the given event e.
@@ -180,7 +214,6 @@ public class SplitApp {
                 System.out.println(name + " has been added to this event. ");
             }
         }
-        modifyEvent(e);
     }
 
     // MODIFIES: the given event e.
@@ -259,6 +292,7 @@ public class SplitApp {
         }
     }
 
+    //TODO: update
     // REQUIRES: user must enter an integer or "b".
     // EFFECTS: prints out a list of the expenses in the given event, and prompts the user to select one of the expenses
     // or return to this event's menu.
@@ -274,32 +308,26 @@ public class SplitApp {
                         + String.format("%.2f", ex.getAmount()));
                 i++;
             }
-            System.out.println("Select one of the events to modify or press b to go back to the event.");
+            System.out.println("Select one of the events to modify or press any other key to go back to the event.");
             String selection = input.next();
-            if (selection.equals("b")) {
-                modifyEvent(e);
-            } else {
+            try {
                 int s = Integer.parseInt(selection);
-                selectExpense(e, s);
+                if (s < 0 || s >= e.getExpenses().size()) {
+                    throw new InvalidSelectionException();
+                } else
+                    selectExpense(e, s);
+            } catch (NumberFormatException | InvalidSelectionException exception) {
+                // do nothing
             }
         }
     }
 
     // EFFECTS: prints the name of the expense selected, then takes the user to the expense menu for that expense.
     private void selectExpense(Event e, int s) {
-        try {
-            if (s < 0 || s >= e.getExpenses().size()) {
-                throw new InvalidSelectionException();
-            } else {
-                Expense ex = e.getExpenses().get(s);
-                System.out.println("You have selected " + ex.getExpenseName() + ": $"
-                        + String.format("%.2f", ex.getAmount()));
-                modifyExpense(ex);
-            }
-        } catch (InvalidSelectionException exc) {
-            System.out.println("No. Pick from one of the numbers I gave you... It's not that hard.");
-            showExpense(e);
-        }
+        Expense ex = e.getExpenses().get(s);
+        System.out.println("You have selected " + ex.getExpenseName() + ": $"
+                + String.format("%.2f", ex.getAmount()));
+        runExpense(e, ex);
     }
 
     // EFFECTS: prints out the total cost of the given event.
@@ -361,31 +389,44 @@ public class SplitApp {
 
 
     // ------ EXPENSE MENU ------ //
-    // EFFECTS: displays the menu for a given expense, prompts the user for a selection, and process the command.
-    private void modifyExpense(Expense ex) {
-        expenseMenu();
-        String expenseCommand = input.next().toLowerCase();
+    //TODO: doc
+    private void runExpense(Event e, Expense ex) {
+        boolean keepGoing = true;
+        String command;
 
+        while (keepGoing) {
+            expenseMenu();
+            command = input.next();
+            command = command.toLowerCase();
+
+            if (command.equals("b")) {
+                keepGoing = false;
+            } else {
+                modifyExpense(e, ex, command);
+            }
+        }
+    }
+
+    // EFFECTS: displays the menu for a given expense, prompts the user for a selection, and process the command.
+    private void modifyExpense(Event e, Expense ex, String expenseCommand) {
         if (expenseCommand.equals("n")) {
             changeExpenseName(ex);
         } else if (expenseCommand.equals("v")) {
             changeExpenseValue(ex);
         } else if (expenseCommand.equals("p")) {
             try {
-                changeExpensePaidBy(ex);
+                changeExpensePaidBy(e, ex);
             } catch (PersonNotFoundException exc) {
-                fixPersonNotFound(ex.getFromEvent());
+                fixPersonNotFound(e);
             }
         } else if (expenseCommand.equals("s")) {
             try {
-                changeExpenseSharedBy(ex);
+                changeExpenseSharedBy(e, ex);
             } catch (PersonNotFoundException exc) {
-                fixPersonNotFound(ex.getFromEvent());
+                fixPersonNotFound(e);
             }
-        } else if (expenseCommand.equals("b")) {
-            modifyEvent(ex.getFromEvent());
         } else {
-            invalidCommand();
+            youAreWrongTryAgain();
         }
     }
 
@@ -425,10 +466,10 @@ public class SplitApp {
     // MODIFIES: the given expense ex
     // EFFECTS: prompts the user to enter the name of a person who paid for this expense, sets the expense's paidBy
     // to the person with the given name, then returns to the expense menu.
-    private void changeExpensePaidBy(Expense ex) throws PersonNotFoundException {
+    private void changeExpensePaidBy(Event e, Expense ex) throws PersonNotFoundException {
         System.out.println("Enter the name of the person who paid for this expense.");
         String name = input.next();
-        ex.setPaidBy(findPersonWithName(name, ex.getFromEvent().getPeople()));
+        ex.setPaidBy(findPersonWithName(name, e.getPeople()));
         System.out.println("This expense was paid by " + ex.getPaidBy().getName());
         backToExpenseMenu(ex);
     }
@@ -436,11 +477,11 @@ public class SplitApp {
     // MODIFIES: the given expense ex
     // EFFECTS: prompts the user to enter the names of people who paid for this expense, sets the expense's sharedBy
     // to the list of people with the given name, then returns to the expense menu.
-    private void changeExpenseSharedBy(Expense ex) throws PersonNotFoundException {
+    private void changeExpenseSharedBy(Event e, Expense ex) throws PersonNotFoundException {
         System.out.println("Enter the people that share the cost of this expense. Enter one name at a time.");
         String name = input.next();
         ArrayList<Person> sharedBy = new ArrayList<>();
-        sharedBy.add(findPersonWithName(name, ex.getFromEvent().getPeople()));
+        sharedBy.add(findPersonWithName(name, e.getPeople()));
         boolean loop = true;
         while (loop) {
             System.out.println("Enter the next person's name or n if no more.");
@@ -448,7 +489,7 @@ public class SplitApp {
             if (n.equals("n")) {
                 loop = false;
             } else {
-                sharedBy.add(findPersonWithName(n, ex.getFromEvent().getPeople()));
+                sharedBy.add(findPersonWithName(n, e.getPeople()));
             }
         }
         ex.setSharedBy(sharedBy);
@@ -497,8 +538,6 @@ public class SplitApp {
         String decision = input.next();
         if (decision.equals("a")) {
             addPerson(e);
-        } else if (decision.equals("b")) {
-            modifyEvent(e);
         }
     }
 
@@ -513,22 +552,24 @@ public class SplitApp {
     private void backToEventMenu(Event e) {
         System.out.println("Press any key to go back to the event menu.");
         input.next();
-        modifyEvent(e);
     }
 
     // EFFECTS: takes the user back to the expense menu of the given expense after any keyboard input.
     private void backToExpenseMenu(Expense ex) {
         System.out.println("Press any key to go back to the expense menu.");
         input.next();
-        modifyExpense(ex);
     }
 
     // EFFECTS: initializes the splitter app with an empty list of events, an input representing the keyboard input,
     // and delimiter "\n".
     private void initialize() {
-        events = new ArrayList<>();
         input = new Scanner(System.in);
         input.useDelimiter("\n");
+    }
+
+    //TODO: doc
+    private void youAreWrongTryAgain() {
+        System.out.println("That's not a valid selection. Pick something from the list I gave you. Try again.");
     }
 
 
@@ -549,7 +590,7 @@ public class SplitApp {
     // EFFECTS: loads billbook from file
     private void loadBillBook() {
         try {
-            billBook = jsonReader.read();
+            this.billBook = jsonReader.read();
             System.out.println("Loaded " + billBook.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
             System.out.println("Unable to read from file: " + JSON_STORE);
