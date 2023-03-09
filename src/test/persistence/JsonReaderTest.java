@@ -58,6 +58,7 @@ public class JsonReaderTest extends JsonTest {
         }
     }
 
+    // EFFECTS: set up a test event ev1 and returns it
     private Event setUpEvent1() {
         Person p1 = new Person("p1");
         Person p2 = new Person("p2");

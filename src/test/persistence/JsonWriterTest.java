@@ -72,6 +72,7 @@ public class JsonWriterTest extends JsonTest {
         }
     }
 
+    // EFFECTS: set up a test event ev1 and returns it
     private Event setUpEvent1() {
         Person p1 = new Person("p1");
         Person p2 = new Person("p2");
@@ -86,6 +87,7 @@ public class JsonWriterTest extends JsonTest {
         return ev1;
     }
 
+    // EFFECTS: writes the given BillBook bb to file and read it back in from file and returns it.
     private BillBook getBillBook(BillBook bb) throws IOException {
         JsonWriter writer = new JsonWriter("./data/testWriterGeneralBillBook.json");
         writer.open();
