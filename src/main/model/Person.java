@@ -5,13 +5,14 @@ import org.json.JSONObject;
 import persistence.Writable;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 // Person class represents a person with a name, amount paid, amount shared, and amount balance.
 public class Person implements Writable {
     private String name;
-    private Double totalPaid;
-    private Double totalShared;
-    private Double balance;
+    private double totalPaid;
+    private double totalShared;
+    private double balance;
 
     // EFFECTS: constructs a person with the given name and zero as the initial amount paid, shared, and balance.
     public Person(String name) {
@@ -25,15 +26,15 @@ public class Person implements Writable {
         this.name = name;
     }
 
-    public void setTotalPaid(Double totalPaid) {
+    public void setTotalPaid(double totalPaid) {
         this.totalPaid = totalPaid;
     }
 
-    public void setTotalShared(Double totalShared) {
+    public void setTotalShared(double totalShared) {
         this.totalShared = totalShared;
     }
 
-    public void setBalance(Double balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 
@@ -41,15 +42,15 @@ public class Person implements Writable {
         return this.name;
     }
 
-    public Double getTotalPaid() {
+    public double getTotalPaid() {
         return totalPaid;
     }
 
-    public Double getTotalShared() {
+    public double getTotalShared() {
         return totalShared;
     }
 
-    public Double getBalance() {
+    public double getBalance() {
         return balance;
     }
 
@@ -63,5 +64,4 @@ public class Person implements Writable {
         json.put("balance", balance);
         return json;
     }
-
 }

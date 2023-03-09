@@ -7,7 +7,7 @@ import java.util.ArrayList;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
-// Tests for methods in the event class.
+// Tests for the event class.
 class EventTest {
     Event event1;
     Event event2;
@@ -128,5 +128,11 @@ class EventTest {
         assertEquals(200, p2.getTotalPaid());
         assertEquals(351, p2.getTotalShared());
         assertEquals(-151, p2.getBalance());
+    }
+
+    @Test
+    public void testSetEventName() {
+        event1.setEventName("something else");
+        assertEquals("something else", event1.getEventName());
     }
 }

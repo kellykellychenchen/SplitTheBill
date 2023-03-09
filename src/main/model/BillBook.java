@@ -19,7 +19,6 @@ public class BillBook implements Writable {
         events = new ArrayList<>();
     }
 
-    // EFFECTS: returns the name of this billbook.
     public String getName() {
         return name;
     }

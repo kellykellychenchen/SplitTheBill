@@ -1,0 +1,51 @@
+{
+  "name": "test billbook",
+  "events": [
+    {
+      "name": "ev1",
+      "people": [
+        {
+          "balance": 0,
+          "totalPaid": 0,
+          "name": "p1",
+          "totalShared": 0
+        },
+        {
+          "balance": 0,
+          "totalPaid": 0,
+          "name": "p2",
+          "totalShared": 0
+        }
+      ],
+      "expenses": [{
+        "amount": 100,
+        "paidBy": {
+          "balance": 0,
+          "totalPaid": 0,
+          "name": "p1",
+          "totalShared": 0
+        },
+        "sharedBy": [
+          {
+            "balance": 0,
+            "totalPaid": 0,
+            "name": "p1",
+            "totalShared": 0
+          },
+          {
+            "balance": 0,
+            "totalPaid": 0,
+            "name": "p2",
+            "totalShared": 0
+          }
+        ],
+        "name": "ex1"
+      }]
+    },
+    {
+      "name": "empty event",
+      "people": [],
+      "expenses": []
+    }
+  ]
+}

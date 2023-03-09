@@ -315,8 +315,9 @@ public class SplitApp {
                 int s = Integer.parseInt(selection);
                 if (s < 0 || s >= e.getExpenses().size()) {
                     throw new InvalidSelectionException();
-                } else
+                } else {
                     selectExpense(e, s);
+                }
             } catch (NumberFormatException | InvalidSelectionException exception) {
                 // do nothing
             }

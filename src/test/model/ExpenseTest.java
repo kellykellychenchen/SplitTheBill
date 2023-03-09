@@ -9,7 +9,7 @@ import static java.util.Objects.isNull;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
-// Tests for methods in the expense class.
+// Tests for the expense class.
 public class ExpenseTest {
     Expense exp1;
     Expense exp2;
@@ -49,5 +49,29 @@ public class ExpenseTest {
         assertEquals(51, exp1.splitAmount());
         assertEquals(200, exp2.splitAmount());
         assertEquals(300, exp3.splitAmount());
+    }
+
+    @Test
+    public void testSetExpenseName() {
+        exp1.setExpenseName("not_exp1");
+        assertEquals("not_exp1", exp1.getExpenseName());
+    }
+
+    @Test
+    public void testSetAmount() {
+        exp1.setAmount(500);
+        assertEquals(500, exp1.getAmount());
+    }
+
+    @Test
+    public void testSetPaidBy() {
+        exp1.setPaidBy(p2);
+        assertEquals(p2, exp1.getPaidBy());
+    }
+
+    @Test
+    public void testSetSharedBy() {
+        exp1.setSharedBy(lop2);
+        assertEquals(lop2, exp1.getSharedBy());
     }
 }
