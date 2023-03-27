@@ -102,7 +102,7 @@ public class JsonReader {
     // EFFECTS: parse expense from JSON object and add it to event
     private void addExpenseToEvent(Event event, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
-        Double amount = jsonObject.getDouble("amount");
+        double amount = jsonObject.getDouble("amount");
         Person paidBy = parsePerson((JSONObject) jsonObject.get("paidBy"));
         ArrayList sharedBy = new ArrayList<>();
         addPeopleToSharedBy(sharedBy, jsonObject);
@@ -131,9 +131,9 @@ public class JsonReader {
     // EFFECTS: parse person from JSON object and returns it as Person
     private Person parsePerson(JSONObject jsonObject) {
         String name = jsonObject.getString("name");
-        Double totalPaid = jsonObject.getDouble("totalPaid");
-        Double totalShared = jsonObject.getDouble("totalShared");
-        Double balance = jsonObject.getDouble("balance");
+        double totalPaid = jsonObject.getDouble("totalPaid");
+        double totalShared = jsonObject.getDouble("totalShared");
+        double balance = jsonObject.getDouble("balance");
         Person person = new Person(name);
         person.setTotalPaid(totalPaid);
         person.setTotalShared(totalShared);
