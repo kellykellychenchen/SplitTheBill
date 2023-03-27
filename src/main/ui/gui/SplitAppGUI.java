@@ -16,6 +16,6 @@ public class SplitAppGUI extends JFrame {
         add(l);
         add(l1);
 
-
+        Addition obj = new Addition();
     }
 }

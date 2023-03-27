@@ -1,170 +1,44 @@
 {
     "name": "Kelly's Bill Book",
-    "events": [
-        {
-            "name": "name",
-            "people": [
+    "events": [{
+        "name": "event",
+        "people": [
+            {
+                "balance": 10,
+                "totalPaid": 20,
+                "name": "kelly",
+                "totalShared": 10
+            },
+            {
+                "balance": -10,
+                "totalPaid": 0,
+                "name": "bob",
+                "totalShared": 10
+            }
+        ],
+        "expenses": [{
+            "amount": 20,
+            "paidBy": {
+                "balance": 10,
+                "totalPaid": 20,
+                "name": "kelly",
+                "totalShared": 10
+            },
+            "sharedBy": [
                 {
-                    "balance": -100,
-                    "totalPaid": 0,
-                    "name": "person1",
-                    "totalShared": 100
+                    "balance": 10,
+                    "totalPaid": 20,
+                    "name": "kelly",
+                    "totalShared": 10
                 },
                 {
-                    "balance": -100,
+                    "balance": -10,
                     "totalPaid": 0,
-                    "name": "person2",
-                    "totalShared": 100
-                },
-                {
-                    "balance": 200,
-                    "totalPaid": 200,
-                    "name": "newpp",
-                    "totalShared": 0
+                    "name": "bob",
+                    "totalShared": 10
                 }
             ],
-            "expenses": [
-                {
-                    "amount": 300,
-                    "paidBy": {
-                        "balance": 60,
-                        "totalPaid": 300,
-                        "name": "person1",
-                        "totalShared": 240
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": 60,
-                            "totalPaid": 300,
-                            "name": "person1",
-                            "totalShared": 240
-                        },
-                        {
-                            "balance": -60,
-                            "totalPaid": 90,
-                            "name": "person2",
-                            "totalShared": 150
-                        }
-                    ],
-                    "name": "nothing"
-                },
-                {
-                    "amount": 90,
-                    "paidBy": {
-                        "balance": -60,
-                        "totalPaid": 90,
-                        "name": "person2",
-                        "totalShared": 150
-                    },
-                    "sharedBy": [{
-                        "balance": 60,
-                        "totalPaid": 300,
-                        "name": "person1",
-                        "totalShared": 240
-                    }],
-                    "name": "nothingness"
-                },
-                {
-                    "amount": 200,
-                    "paidBy": {
-                        "balance": 200,
-                        "totalPaid": 200,
-                        "name": "newpp",
-                        "totalShared": 0
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": -100,
-                            "totalPaid": 0,
-                            "name": "person1",
-                            "totalShared": 100
-                        },
-                        {
-                            "balance": -100,
-                            "totalPaid": 0,
-                            "name": "person2",
-                            "totalShared": 100
-                        }
-                    ],
-                    "name": "200"
-                }
-            ]
-        },
-        {
-            "name": "name",
-            "people": [
-                {
-                    "balance": 0,
-                    "totalPaid": 0,
-                    "name": "newp1",
-                    "totalShared": 0
-                },
-                {
-                    "balance": 0,
-                    "totalPaid": 0,
-                    "name": "",
-                    "totalShared": 0
-                }
-            ],
-            "expenses": []
-        },
-        {
-            "name": "name is not name",
-            "people": [],
-            "expenses": []
-        },
-        {
-            "name": "name is really not name now",
-            "people": [
-                {
-                    "balance": 23,
-                    "totalPaid": 23,
-                    "name": "persona",
-                    "totalShared": 0
-                },
-                {
-                    "balance": 0,
-                    "totalPaid": 0,
-                    "name": "personb",
-                    "totalShared": 0
-                },
-                {
-                    "balance": -11.5,
-                    "totalPaid": 0,
-                    "name": "",
-                    "totalShared": 11.5
-                },
-                {
-                    "balance": 0,
-                    "totalPaid": 0,
-                    "name": "",
-                    "totalShared": 0
-                }
-            ],
-            "expenses": [{
-                "amount": 23,
-                "paidBy": {
-                    "balance": 23,
-                    "totalPaid": 23,
-                    "name": "persona",
-                    "totalShared": 0
-                },
-                "sharedBy": [
-                    {
-                        "balance": -11.5,
-                        "totalPaid": 0,
-                        "name": "",
-                        "totalShared": 11.5
-                    },
-                    {
-                        "balance": -11.5,
-                        "totalPaid": 0,
-                        "name": "",
-                        "totalShared": 11.5
-                    }
-                ],
-                "name": "lala"
-            }]
-        }
-    ]
+            "name": "expense1"
+        }]
+    }]
 }
