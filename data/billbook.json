@@ -1,44 +1,4 @@
 {
     "name": "Kelly's Bill Book",
-    "events": [{
-        "name": "event",
-        "people": [
-            {
-                "balance": 10,
-                "totalPaid": 20,
-                "name": "kelly",
-                "totalShared": 10
-            },
-            {
-                "balance": -10,
-                "totalPaid": 0,
-                "name": "bob",
-                "totalShared": 10
-            }
-        ],
-        "expenses": [{
-            "amount": 20,
-            "paidBy": {
-                "balance": 10,
-                "totalPaid": 20,
-                "name": "kelly",
-                "totalShared": 10
-            },
-            "sharedBy": [
-                {
-                    "balance": 10,
-                    "totalPaid": 20,
-                    "name": "kelly",
-                    "totalShared": 10
-                },
-                {
-                    "balance": -10,
-                    "totalPaid": 0,
-                    "name": "bob",
-                    "totalShared": 10
-                }
-            ],
-            "name": "expense1"
-        }]
-    }]
+    "events": []
 }
