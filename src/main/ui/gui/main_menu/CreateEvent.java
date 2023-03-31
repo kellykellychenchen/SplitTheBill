@@ -1,4 +1,4 @@
-package ui.gui;
+package ui.gui.main_menu;
 
 import model.BillBook;
 import model.Event;

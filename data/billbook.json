@@ -1,4 +1,45 @@
 {
     "name": "Kelly's Bill Book",
-    "events": []
+    "events": [{
+        "name": "s",
+        "people": [
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "asdf",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "asdf",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "asdfasrfhgdfaz",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "q",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "w",
+                "totalShared": 0
+            },
+            {
+                "balance": 0,
+                "totalPaid": 0,
+                "name": "e",
+                "totalShared": 0
+            }
+        ],
+        "expenses": []
+    }]
 }

@@ -1,6 +1,7 @@
-package ui.gui;
+package ui.gui.event_menu;
 
 import model.Event;
+import ui.gui.event_menu.AddPerson;
 
 import javax.swing.*;
 import java.awt.*;
@@ -12,6 +13,7 @@ import java.util.List;
 public class EventMenu extends JFrame implements ActionListener {
     JLabel l1 = new JLabel("What would you like to do in this event?");
     List<JButton> butts;
+    Event event;
 
     public EventMenu(Event event) {
         setVisible(true);
@@ -19,40 +21,44 @@ public class EventMenu extends JFrame implements ActionListener {
         setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.butts = new ArrayList<>();
+        this.event = event;
 
-        add(l1);
+        setUpComponents();
+        addListeners();
+    }
+
+    private void setUpComponents() {
         JButton b0 = new JButton("Add person");
-        butts.add(b0);
         JButton b1 = new JButton("Add expense");
-        butts.add(b1);
         JButton b2 = new JButton("View people");
-        butts.add(b2);
         JButton b3 = new JButton("View expenses");
-        butts.add(b3);
         JButton b4 = new JButton("View cost summary");
+        butts.add(b0);
+        butts.add(b1);
+        butts.add(b2);
+        butts.add(b3);
         butts.add(b4);
-
+        add(l1);
         add(b0);
         add(b1);
         add(b2);
         add(b3);
         add(b4);
+    }
 
-        b0.addActionListener(this);
-        b1.addActionListener(this);
-        b2.addActionListener(this);
-        b3.addActionListener(this);
-        b4.addActionListener(this);
-
+    private void addListeners() {
+        for (JButton b : butts) {
+            b.addActionListener(this);
+        }
     }
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == butts.get(0)) {
-
+            new AddPerson(this.event);
         }
         if (e.getSource() == butts.get(1)) {
-
+            new AddExpense(this.event);
         }
         if (e.getSource() == butts.get(2)) {
 

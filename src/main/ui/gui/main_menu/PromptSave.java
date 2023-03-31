@@ -1,6 +1,7 @@
-package ui.gui;
+package ui.gui.main_menu;
 
 import model.BillBook;
+import ui.gui.SplitAppGUI;
 
 import javax.swing.*;
 import java.awt.*;
