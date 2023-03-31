@@ -18,7 +18,7 @@ public class EventMenu extends JFrame implements ActionListener {
     public EventMenu(Event event) {
         setVisible(true);
         setSize(400, 400);
-        setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
+        setLayout(new GridLayout(6,1)); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.butts = new ArrayList<>();
         this.event = event;

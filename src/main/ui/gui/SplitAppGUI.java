@@ -45,7 +45,6 @@ public class SplitAppGUI extends JFrame implements ActionListener {
 
         setUpComponents();
         setUpImage();
-        addComponentsToFrame();
         addListeners();
     }
 
@@ -64,18 +63,25 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         buttons.add(b3);
         buttons.add(b4);
         labels.add(l1);
+        add(l0);
+        add(b0);
+        add(b1);
+        add(b2);
+        add(b3);
+        add(b4);
+        add(l1);
     }
 
-    private void addComponentsToFrame() {
-        add(labels.get(0));
-        add(buttons.get(0));
-        add(buttons.get(1));
-        add(buttons.get(2));
-        add(buttons.get(3));
-        add(buttons.get(4));
-        add(labels.get(1));
-        add(panel);
-    }
+//    private void addComponentsToFrame() {
+//        add(labels.get(0));
+//        add(buttons.get(0));
+//        add(buttons.get(1));
+//        add(buttons.get(2));
+//        add(buttons.get(3));
+//        add(buttons.get(4));
+//        add(labels.get(1));
+//        add(panel);
+//    }
 
     private void addListeners() {
         for (JButton b : buttons) {
@@ -99,6 +105,7 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         } catch (IOException e) {
             l2.setText("(failed to load icon. Imagine a cute dollar sign at this place)");
         }
+        add(panel);
     }
 
     @Override
