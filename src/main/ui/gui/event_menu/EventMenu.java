@@ -1,7 +1,6 @@
 package ui.gui.event_menu;
 
 import model.Event;
-import ui.gui.event_menu.AddPerson;
 
 import javax.swing.*;
 import java.awt.*;
@@ -62,13 +61,13 @@ public class EventMenu extends JFrame implements ActionListener {
             new AddExpense(this.event);
         }
         if (e.getSource() == butts.get(2)) {
-
+            new ShowPeople(this.event.getPeople());
         }
         if (e.getSource() == butts.get(3)) {
-
+            new ShowExpenses(this.event.getExpenses());
         }
         if (e.getSource() == butts.get(4)) {
-
+            new ShowSummary(this.event);
         }
     }
 }

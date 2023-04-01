@@ -16,7 +16,7 @@ public class PromptSave extends JFrame implements ActionListener {
 
     public PromptSave(SplitAppGUI app) {
         setVisible(true);
-        setSize(400, 400);
+        setSize(400, 100);
         setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.app = app;
