@@ -1,14 +1,12 @@
-package ui.gui.event_menu;
+package ui.gui.eventmenu;
 
 import model.Event;
-import model.Expense;
 import model.Person;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
 import static java.lang.Math.abs;
 
@@ -16,10 +14,10 @@ public class ShowSummary extends JFrame implements ActionListener {
     JLabel l1 = new JLabel("This is a cost summary of this event.");
     JLabel totalCostLabel = new JLabel();
     JButton butt = new JButton("CLOSE");
-    JPanel ptop = new JPanel();
-    JPanel pmid = new JPanel();
-    JPanel pmid2 = new JPanel();
-    JPanel pbot = new JPanel();
+    JPanel titlePanel = new JPanel();
+    JPanel totalCostPanel = new JPanel();
+    JPanel balanceSummaryPanel = new JPanel();
+    JPanel closePanel = new JPanel();
     Event event;
 
     public ShowSummary(Event event) {
@@ -29,21 +27,37 @@ public class ShowSummary extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.event = event;
 
-        ptop.add(l1);
+        setUpComponents(event);
+        pack();
+        butt.addActionListener(this);
+    }
 
-        double total = event.calcTotalCost();
-        totalCostLabel.setText("The total cost of all expenses in this event is $" + String.format("%.2f", total));
-        pmid.add(totalCostLabel);
+    private void setUpComponents(Event event) {
+        titlePanel.add(l1);
 
-        BoxLayout layout = new BoxLayout(pmid2, BoxLayout.Y_AXIS);
-        pmid2.setLayout(layout);
+        totalCostLabel.setText("The total cost of all expenses in this event is $"
+                + String.format("%.2f", event.calcTotalCost()));
+        totalCostPanel.add(totalCostLabel);
 
+        BoxLayout layout = new BoxLayout(balanceSummaryPanel, BoxLayout.Y_AXIS);
+        balanceSummaryPanel.setLayout(layout);
+        getBalanceForEachPerson(event);
+
+        closePanel.add(butt);
+
+        add(titlePanel);
+        add(totalCostPanel);
+        add(balanceSummaryPanel);
+        add(closePanel);
+    }
+
+    private void getBalanceForEachPerson(Event event) {
         for (Person p : event.getPeople()) {
             JLabel personLabel = new JLabel();
             double balance = p.getBalance();
             String personName = p.getName();
             if (balance == 0) {
-                personLabel.setText(personName + "has no outstanding balance.");
+                personLabel.setText(personName + " has no outstanding balance.");
             } else if (balance < 0) {
                 balance = abs(balance);
                 personLabel.setText(personName + " owes $" + String.format("%.2f", balance));
@@ -51,18 +65,8 @@ public class ShowSummary extends JFrame implements ActionListener {
                 personLabel.setText(personName + " should receive $" + String.format("%.2f", balance));
             }
             personLabel.setAlignmentX(Component.CENTER_ALIGNMENT);
-            pmid2.add(personLabel);
+            balanceSummaryPanel.add(personLabel);
         }
-
-        pbot.add(butt);
-
-        add(ptop);
-        add(pmid);
-        add(pmid2);
-        add(pbot);
-
-        pack();
-        butt.addActionListener(this);
     }
 
     @Override

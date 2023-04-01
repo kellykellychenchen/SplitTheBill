@@ -1,4 +1,4 @@
-package ui.gui.main_menu;
+package ui.gui.mainmenu;
 
 import model.BillBook;
 import model.Event;
@@ -11,21 +11,21 @@ import java.awt.event.ActionListener;
 public class CreateEvent extends JFrame implements ActionListener {
     JLabel l1 = new JLabel("Enter the name of your new event and click OK.");
     JTextField t1 = new JTextField(15);
-    JButton b = new JButton("OK");
+    JButton butt = new JButton("OK");
     BillBook bb;
 
 
     public CreateEvent(BillBook billbook) {
         setVisible(true);
-        setSize(400, 400);
+        setSize(400, 200);
         setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.bb = billbook;
 
         add(l1);
         add(t1);
-        add(b);
-        b.addActionListener(this);
+        add(butt);
+        butt.addActionListener(this);
     }
 
     @Override

@@ -1,4 +1,4 @@
-package ui.gui.event_menu;
+package ui.gui.eventmenu;
 
 import model.Event;
 import model.Expense;
@@ -39,6 +39,12 @@ public class AddExpense extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.event = event;
 
+        setUpComponents(event);
+        pack();
+        butt.addActionListener(this);
+    }
+
+    private void setUpComponents(Event event) {
         costPanel.add(costPromptLabel);
         costPanel.add(t0);
         add(costPanel);
@@ -47,33 +53,33 @@ public class AddExpense extends JFrame implements ActionListener {
         namePanel.add(t1);
         add(namePanel);
 
-//        BoxLayout layout = new BoxLayout(paidPanel, BoxLayout.Y_AXIS);
-//        paidPanel.setLayout(layout);
         paidPanel.add(paidPromptLabel);
+        createPaidChoices(event);
+        add(paidPanel);
+
+        sharedPanel.add(sharedPromptLabel);
+        createSharedChoices(event);
+        add(sharedPanel);
+
+        closePanel.add(butt);
+        add(closePanel);
+    }
+
+    private void createSharedChoices(Event event) {
+        for (Person p : event.getPeople()) {
+            JCheckBox b = new JCheckBox(p.getName());
+            cboxes.add(b);
+            sharedPanel.add(b);
+        }
+    }
+
+    private void createPaidChoices(Event event) {
         for (Person p : event.getPeople()) {
             JRadioButton b = new JRadioButton(p.getName());
             bg.add(b);
             rbutts.add(b);
             paidPanel.add(b);
         }
-        add(paidPanel);
-
-//        BoxLayout layout2 = new BoxLayout(sharedPanel, BoxLayout.Y_AXIS);
-//        sharedPanel.setLayout(layout2);
-        sharedPanel.add(sharedPromptLabel);
-        for (Person p : event.getPeople()) {
-            JCheckBox b = new JCheckBox(p.getName());
-            cboxes.add(b);
-            sharedPanel.add(b);
-        }
-        add(sharedPanel);
-
-        closePanel.add(butt);
-        add(closePanel);
-
-        pack();
-
-        butt.addActionListener(this);
     }
 
     @Override

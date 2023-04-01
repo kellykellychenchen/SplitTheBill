@@ -1,7 +1,6 @@
-package ui.gui.event_menu;
+package ui.gui.eventmenu;
 
-import model.Event;
-import model.Person;
+import model.Expense;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,33 +8,32 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
-public class ShowPeople extends JFrame implements ActionListener {
-    JLabel l1 = new JLabel("This is a list of people currently in this event.");
+public class ShowExpenses extends JFrame implements ActionListener {
+    JLabel l1 = new JLabel("This is a list of expenses currently in this event.");
     DefaultListModel<String> model = new DefaultListModel<>();
     JList jl = new JList(model);
     JScrollPane sp = new JScrollPane(jl);
     JButton butt = new JButton("CLOSE");
-    ArrayList<Person> people;
+    ArrayList<Expense> expenses;
     JPanel ptop = new JPanel();
     JPanel pmid = new JPanel();
     JPanel pbot = new JPanel();
 
-    public ShowPeople(ArrayList<Person> people) {
+    public ShowExpenses(ArrayList<Expense> expenses) {
         setVisible(true);
         setSize(400, 200);
         setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.people = people;
+        this.expenses = expenses;
 
-        add(l1);
-        for (Person p : this.people) {
-            model.addElement(p.getName());
+        ptop.add(l1);
+        for (Expense exp : this.expenses) {
+            model.addElement(exp.getExpenseName());
         }
         jl.setVisibleRowCount(5);
         jl.setFixedCellWidth(200);
-
-        add(sp);
-        add(butt);
+        pmid.add(sp);
+        pbot.add(butt);
 
         add(ptop);
         add(pmid);

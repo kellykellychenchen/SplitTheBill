@@ -1,8 +1,8 @@
-package ui.gui.main_menu;
+package ui.gui.mainmenu;
 
 import model.BillBook;
 import model.Event;
-import ui.gui.event_menu.EventMenu;
+import ui.gui.eventmenu.EventMenu;
 
 import javax.swing.*;
 import java.awt.*;
@@ -19,13 +19,16 @@ public class SelectEvent extends JFrame implements ActionListener {
 
     public SelectEvent(BillBook billbook) {
         setVisible(true);
-        setSize(400, 400);
+        setSize(400, 200);
         setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.bb = billbook;
         this.butts = new ArrayList<>();
 
         add(l1);
+        if (bb.getEvents().size() == 0) {
+            l1.setText("You haven't created any events in this billbook!! ");
+        }
         for (int i = 0; i < bb.getEvents().size(); i++) {
             JButton b = new JButton(bb.getEvents().get(i).getEventName());
             add(b);

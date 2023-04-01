@@ -1,4 +1,4 @@
-package ui.gui.event_menu;
+package ui.gui.eventmenu;
 
 import model.Event;
 

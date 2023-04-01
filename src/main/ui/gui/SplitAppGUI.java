@@ -3,9 +3,9 @@ package ui.gui;
 import model.BillBook;
 import persistence.JsonReader;
 import persistence.JsonWriter;
-import ui.gui.main_menu.CreateEvent;
-import ui.gui.main_menu.PromptSave;
-import ui.gui.main_menu.SelectEvent;
+import ui.gui.mainmenu.CreateEvent;
+import ui.gui.mainmenu.PromptSave;
+import ui.gui.mainmenu.SelectEvent;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -52,7 +52,7 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         JLabel l0 = new JLabel("How would you like to start?");
         JButton b0 = new JButton("Create a new event");
         JButton b1 = new JButton("Select from existing events");
-        JButton b2 = new JButton("Save billbook to file");
+        JButton b2 = new JButton("Save billbook");
         JButton b3 = new JButton("Load billbook from file");
         JButton b4 = new JButton("quit");
         JLabel l1 = new JLabel();
@@ -71,17 +71,6 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         add(b4);
         add(l1);
     }
-
-//    private void addComponentsToFrame() {
-//        add(labels.get(0));
-//        add(buttons.get(0));
-//        add(buttons.get(1));
-//        add(buttons.get(2));
-//        add(buttons.get(3));
-//        add(buttons.get(4));
-//        add(labels.get(1));
-//        add(panel);
-//    }
 
     private void addListeners() {
         for (JButton b : buttons) {
