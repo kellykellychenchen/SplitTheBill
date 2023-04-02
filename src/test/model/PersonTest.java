@@ -61,10 +61,13 @@ public class PersonTest {
 
         Person p4 = new Person(p1.getName());
         assertEquals(p1, p4);
+
+        String p5 = "p5";
+        assertNotEquals(p1, p5);
     }
 
     @Test
     public void testHashCode() {
-        assertEquals(1840356027, p1.hashCode());
+        assertEquals(104584997, p1.hashCode());
     }
 }

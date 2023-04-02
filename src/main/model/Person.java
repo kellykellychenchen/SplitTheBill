@@ -65,7 +65,7 @@ public class Person implements Writable {
         return json;
     }
 
-    // EFFECTS: overriding equals, so it returns true for 2 Persons when all their fields are equal.
+    // EFFECTS: overriding equals, so it returns true for 2 Persons with the same name.
     @Override
     public boolean equals(Object o) {
         if (this == o) {
@@ -75,13 +75,13 @@ public class Person implements Writable {
             return false;
         }
         Person person = (Person) o;
-        return Double.compare(person.totalPaid, totalPaid) == 0 && Double.compare(person.totalShared, totalShared) == 0
-                && Double.compare(person.balance, balance) == 0 && Objects.equals(name, person.name);
+        return Objects.equals(name, person.name);
     }
 
-    // EFFECTS: overriding hashcode, so it gives the same value for 2 Persons when Person's equals method returns true.
+    // EFFECTS: overriding hashcode, so it gives the same value for 2 Persons with the same name.
     @Override
     public int hashCode() {
-        return Objects.hash(name, totalPaid, totalShared, balance);
+        return Objects.hash(name);
     }
+
 }
