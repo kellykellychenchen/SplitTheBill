@@ -9,15 +9,16 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
+// Event menu window.
 public class EventMenu extends JFrame implements ActionListener {
-    JLabel l1 = new JLabel("What would you like to do in this event?");
     List<JButton> butts;
     Event event;
 
+    // EFFECTS: constructs a event menu window for the given event
     public EventMenu(Event event) {
         setVisible(true);
         setSize(400, 400);
-        setLayout(new GridLayout(6,1)); //default CardLayout. FlowLayout, GridLayout, Null
+        setLayout(new GridLayout(6, 1));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.butts = new ArrayList<>();
         this.event = event;
@@ -26,7 +27,10 @@ public class EventMenu extends JFrame implements ActionListener {
         addListeners();
     }
 
+    // MODIFIES: this.
+    // EFFECTS: sets up the labels and buttons for the event menu and stores them as fields.
     private void setUpComponents() {
+        JLabel l1 = new JLabel("What would you like to do in this event?");
         JButton b0 = new JButton("Add person");
         JButton b1 = new JButton("Add expense");
         JButton b2 = new JButton("View people");
@@ -45,13 +49,14 @@ public class EventMenu extends JFrame implements ActionListener {
         add(b4);
     }
 
+    // EFFECTS: adds this as listeners for all buttons.
     private void addListeners() {
         for (JButton b : butts) {
             b.addActionListener(this);
         }
     }
 
-
+    // EFFECTS: specifies the actions taken when each button is pressed.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == butts.get(0)) {

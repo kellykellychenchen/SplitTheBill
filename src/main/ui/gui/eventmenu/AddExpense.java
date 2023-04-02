@@ -10,28 +10,15 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+// Pop-up window for creating a new expense.
 public class AddExpense extends JFrame implements ActionListener {
-    JLabel costPromptLabel = new JLabel("How much did this expense cost? Enter a number.");
     JTextField t0 = new JTextField(15);
-    JPanel costPanel = new JPanel();
-
-    JLabel namePromptLabel = new JLabel("Enter the name of this expense.");
     JTextField t1 = new JTextField(15);
-    JPanel namePanel = new JPanel();
-
-    JLabel paidPromptLabel = new JLabel("Who paid for this expense?");
-    ButtonGroup bg = new ButtonGroup();
-    ArrayList<JRadioButton> rbutts = new ArrayList<>();
-    JPanel paidPanel = new JPanel();
-
-    JLabel sharedPromptLabel = new JLabel("Who shares the cost of this expense?");
-    ArrayList<JCheckBox> cboxes = new ArrayList<>();
-    JPanel sharedPanel = new JPanel();
-
-    JButton butt = new JButton("OK");
-    JPanel closePanel = new JPanel();
+    ArrayList<JRadioButton> paidChoices = new ArrayList<>();
+    ArrayList<JCheckBox> sharedChoices = new ArrayList<>();
     Event event;
 
+    // EFFECTS: constructs a window for adding a new Expense inside the given event.
     public AddExpense(Event event) {
         setVisible(true);
         setSize(400, 200);
@@ -41,65 +28,90 @@ public class AddExpense extends JFrame implements ActionListener {
 
         setUpComponents(event);
         pack();
-        butt.addActionListener(this);
     }
 
+
+    // MODIFIES: this.
+    // EFFECTS: sets up the labels and buttons for the add-expense window. Update the panel fields.
     private void setUpComponents(Event event) {
+        JLabel costPromptLabel = new JLabel("How much did this expense cost? Enter a number.");
+        JPanel costPanel = new JPanel();
         costPanel.add(costPromptLabel);
         costPanel.add(t0);
         add(costPanel);
 
+        JLabel namePromptLabel = new JLabel("Enter the name of this expense.");
+        JPanel namePanel = new JPanel();
         namePanel.add(namePromptLabel);
         namePanel.add(t1);
         add(namePanel);
 
-        paidPanel.add(paidPromptLabel);
-        createPaidChoices(event);
+        JPanel paidPanel = getPaidPanel(event);
         add(paidPanel);
 
-        sharedPanel.add(sharedPromptLabel);
-        createSharedChoices(event);
+        JPanel sharedPanel = getSharedPanel(event);
         add(sharedPanel);
 
+        JButton butt = new JButton("OK");
+        JPanel closePanel = new JPanel();
         closePanel.add(butt);
         add(closePanel);
+
+        butt.addActionListener(this);
     }
 
-    private void createSharedChoices(Event event) {
-        for (Person p : event.getPeople()) {
-            JCheckBox b = new JCheckBox(p.getName());
-            cboxes.add(b);
-            sharedPanel.add(b);
-        }
-    }
-
-    private void createPaidChoices(Event event) {
+    // MODIFIES: this.
+    // EFFECTS: create radio-buttons for all people in the given event. Update the paidChoices and paidPanel fields.
+    private JPanel getPaidPanel(Event event) {
+        JLabel paidPromptLabel = new JLabel("Who paid for this expense?");
+        ButtonGroup bg = new ButtonGroup();
+        JPanel paidPanel = new JPanel();
+        paidPanel.add(paidPromptLabel);
         for (Person p : event.getPeople()) {
             JRadioButton b = new JRadioButton(p.getName());
             bg.add(b);
-            rbutts.add(b);
+            paidChoices.add(b);
             paidPanel.add(b);
         }
+        return paidPanel;
     }
 
+    // MODIFIES: this.
+    // EFFECTS: create check-boxes for all people in the given event. Update the sharedChoices and sharedPanel fields.
+    private JPanel getSharedPanel(Event event) {
+        JLabel sharedPromptLabel = new JLabel("Who shares the cost of this expense?");
+        JPanel sharedPanel = new JPanel();
+        sharedPanel.add(sharedPromptLabel);
+        for (Person p : event.getPeople()) {
+            JCheckBox b = new JCheckBox(p.getName());
+            sharedChoices.add(b);
+            sharedPanel.add(b);
+        }
+        return sharedPanel;
+    }
+
+    // TODO: confirm // MODIFIES: Event event
+    // EFFECTS: When button is pressed, create a new Event with information that user entered, add it to this.event,
+    // and close the current window.
     @Override
     public void actionPerformed(ActionEvent e) {
         double amount = Double.parseDouble(t0.getText());
         String name = t1.getText();
 
         Person paidBy = this.event.getPeople().get(0);
-        for (int i = 0; i < rbutts.size(); i++) {
-            if (rbutts.get(i).isSelected()) {
+        for (int i = 0; i < paidChoices.size(); i++) {
+            if (paidChoices.get(i).isSelected()) {
                 paidBy = this.event.getPeople().get(i);
             }
         }
 
         ArrayList<Person> sharedBy = new ArrayList<>();
-        for (int i = 0; i < cboxes.size(); i++) {
-            if (cboxes.get(i).isSelected()) {
+        for (int i = 0; i < sharedChoices.size(); i++) {
+            if (sharedChoices.get(i).isSelected()) {
                 sharedBy.add(this.event.getPeople().get(i));
             }
         }
+
         Expense exp1 = new Expense(name, amount, paidBy, sharedBy);
         this.event.addExpense(exp1);
         this.event.reCalculateBalance();

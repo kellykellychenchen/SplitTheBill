@@ -52,7 +52,7 @@ project which can be accessed at this link: https://github.students.cs.ubc.ca/CP
 
 
  ## Instructions for Grader
-> - You can generate the first required action related to adding Xs to a Y by:
+> - You can generate the first required action related to adding Xs to a Y by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. Click "Load billbook from file" if you wish to load an example billbook.
 >> 3. Click "Select from existing events" to see what events are currently inside this billbook. 
@@ -66,19 +66,19 @@ should satisfy the requirement of being able to add multiple X's to Y.
 you may click into "This is the event!!" which already contains some data or "Empty Event" which has no data.
 >> 8. From this screen, you may add a person, add an expense, view all people, or view all expenses within the selected 
 event by clicking these buttons. This should satisfy the requirement of implementing the first related action.
-> - You can generate the second required action related to adding Xs to a Y by:
+> - You can generate the second required action related to adding Xs to a Y by doing the following:
 >> 1. Follow steps 1-7 in the section above if you haven't already.
 >> 2. From the same screen in step 8 above, you may view the event's cost summary which calculates the total cost of 
 the current event and shows the amount owing for each person in this event. This can be done by clicking the "View cost 
 summary" button. This should satisfy the requirement of implementing the second related action.
-> - You can locate my visual component by:
+> - You can locate my visual component by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. The visual component is the image located at the bottom portion of the main screen.
-> - You can save the state of my application by:
+> - You can save the state of my application by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. You may click the "Save billbook" button on the main screen to manually save the file.
 >> 3. Alternatively, you may click the "quit" button from the main screen. Then there will be a pop-up window asking if 
-would like to save your data. Click "Yes" to save.
-> - You can reload the state of my application by:
+you would like to save your data. Click "Yes" to save.
+> - You can reload the state of my application by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. You may click the "Load billbook from file" button on the main screen to load the saved file.

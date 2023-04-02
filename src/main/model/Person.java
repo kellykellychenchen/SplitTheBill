@@ -64,4 +64,24 @@ public class Person implements Writable {
         json.put("balance", balance);
         return json;
     }
+
+    // EFFECTS: overriding equals, so it returns true for 2 Persons when all their fields are equal.
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        Person person = (Person) o;
+        return Double.compare(person.totalPaid, totalPaid) == 0 && Double.compare(person.totalShared, totalShared) == 0
+                && Double.compare(person.balance, balance) == 0 && Objects.equals(name, person.name);
+    }
+
+    // EFFECTS: overriding hashcode, so it gives the same value for 2 Persons when Person's equals method returns true.
+    @Override
+    public int hashCode() {
+        return Objects.hash(name, totalPaid, totalShared, balance);
+    }
 }

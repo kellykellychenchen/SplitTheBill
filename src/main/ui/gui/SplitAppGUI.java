@@ -19,16 +19,18 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+// Main menu window for the Split The Bill application.
 public class SplitAppGUI extends JFrame implements ActionListener {
     private static final String JSON_STORE = "./data/billbook.json";
     private static final String IMG_STORE = "./data/dollar.jpg";
     private BillBook billBook;
-    private JsonWriter jsonWriter;
-    private JsonReader jsonReader;
+    private final JsonWriter jsonWriter;
+    private final JsonReader jsonReader;
     private List<JButton> buttons;
     private List<JLabel> labels;
     private JPanel panel;
 
+    // EFFECTS: constructs an empty billbook and creates the window for the main menu.
     public SplitAppGUI() {
         super("Split The Bill!");
 
@@ -40,7 +42,7 @@ public class SplitAppGUI extends JFrame implements ActionListener {
 
         setVisible(true);
         setSize(400,400);
-        setLayout(new FlowLayout()); //default CardLayout. FlowLayout, GridLayout, Null
+        setLayout(new FlowLayout());
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
         setUpComponents();
@@ -48,6 +50,8 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         addListeners();
     }
 
+    // MODIFIES: this.
+    // EFFECTS: sets up the labels and buttons for the main menu and stores them as fields.
     private void setUpComponents() {
         JLabel l0 = new JLabel("How would you like to start?");
         JButton b0 = new JButton("Create a new event");
@@ -72,12 +76,14 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         add(l1);
     }
 
+    // EFFECTS: adds this as listeners for all buttons.
     private void addListeners() {
         for (JButton b : buttons) {
             b.addActionListener(this);
         }
     }
 
+    // EFFECTS: sets up the image icon in the main menu.
     private void setUpImage() {
         JLabel l2 = new JLabel();
         labels.add(l2);
@@ -92,11 +98,12 @@ public class SplitAppGUI extends JFrame implements ActionListener {
                     Image.SCALE_SMOOTH);
             l2.setIcon(new ImageIcon(smallPicture));
         } catch (IOException e) {
-            l2.setText("(failed to load icon. Imagine a cute dollar sign at this place)");
+            l2.setText("(failed to load icon. Imagine a dozen cute dollar signs at this location)");
         }
         add(panel);
     }
 
+    // EFFECTS: specifies the actions taken when each button is pressed.
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == buttons.get(0)) {
@@ -117,6 +124,7 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         }
     }
 
+    // EFFECTS: saves billbook to file
     public void saveBillBook() {
         try {
             jsonWriter.open();
@@ -128,6 +136,8 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         }
     }
 
+    // MODIFIES: this
+    // EFFECTS: loads billbook from file and assigns it to this.billBook.
     private void loadBillBook() {
         try {
             this.billBook = jsonReader.read();

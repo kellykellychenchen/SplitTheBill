@@ -8,12 +8,12 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+// Pop-up window for creating a new person.
 public class AddPerson extends JFrame implements ActionListener {
-    JLabel l1 = new JLabel("Enter the person's name then press ADD.");
     JTextField t1 = new JTextField(15);
-    JButton butt = new JButton("ADD");
     Event event;
 
+    // EFFECTS: constructs a window for adding a new Person inside the given event.
     public AddPerson(Event event) {
         setVisible(true);
         setSize(400, 200);
@@ -21,12 +21,18 @@ public class AddPerson extends JFrame implements ActionListener {
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.event = event;
 
+        JLabel l1 = new JLabel("Enter the person's name then press ADD.");
+        JButton butt = new JButton("ADD");
+
         add(l1);
         add(t1);
         add(butt);
         butt.addActionListener(this);
     }
 
+    // TODO: confirm // MODIFIES: Event event
+    // EFFECTS: When button is pressed, create a new Person with the name that user entered, add it to this.event,
+    // and close the current window.
     @Override
     public void actionPerformed(ActionEvent e) {
         String name = t1.getText();

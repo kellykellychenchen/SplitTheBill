@@ -5,7 +5,7 @@ import org.junit.jupiter.api.Test;
 
 import java.util.ArrayList;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.*;
 
 // Tests for the person class.
 public class PersonTest {
@@ -46,5 +46,25 @@ public class PersonTest {
     public void testSetBalance() {
         p1.setBalance(20);
         assertEquals(20, p1.getBalance());
+    }
+
+    @Test
+    public void testEquals() {
+        Person px = p1;
+        assertEquals(p1, px);
+
+        Person p2 = null;
+        assertNotEquals(p1, p2);
+
+        Person p3 = new Person("not p1");
+        assertNotEquals(p1, p3);
+
+        Person p4 = new Person(p1.getName());
+        assertEquals(p1, p4);
+    }
+
+    @Test
+    public void testHashCode() {
+        assertEquals(1840356027, p1.hashCode());
     }
 }
