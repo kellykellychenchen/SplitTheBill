@@ -4,6 +4,7 @@ import model.BillBook;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.gui.mainmenu.CreateEvent;
+import ui.gui.mainmenu.DeleteEvent;
 import ui.gui.mainmenu.PromptSave;
 import ui.gui.mainmenu.SelectEvent;
 
@@ -55,10 +56,12 @@ public class SplitAppGUI extends JFrame implements ActionListener {
     private void setUpComponents() {
         JLabel l0 = new JLabel("How would you like to start?");
         JButton b0 = new JButton("Create a new event");
-        JButton b1 = new JButton("Select from existing events");
+        JButton b1 = new JButton("Open an event");
         JButton b2 = new JButton("Save billbook");
         JButton b3 = new JButton("Load billbook from file");
         JButton b4 = new JButton("quit");
+        JButton b5 = new JButton("Remove an event");
+
         JLabel l1 = new JLabel();
         labels.add(l0);
         buttons.add(b0);
@@ -66,10 +69,12 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         buttons.add(b2);
         buttons.add(b3);
         buttons.add(b4);
+        buttons.add(b5);
         labels.add(l1);
         add(l0);
         add(b0);
         add(b1);
+        add(b5);
         add(b2);
         add(b3);
         add(b4);
@@ -121,6 +126,9 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         if (e.getSource() == buttons.get(4)) {
             new PromptSave(this);
             dispose();
+        }
+        if (e.getSource() == buttons.get(5)) {
+            new DeleteEvent(this.billBook);
         }
     }
 

@@ -55,22 +55,25 @@ project which can be accessed at this link: https://github.students.cs.ubc.ca/CP
 > - You can generate the first required action related to adding Xs to a Y by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. Click "Load billbook from file" if you wish to load an example billbook.
->> 3. Click "Select from existing events" to see what events are currently inside this billbook. 
+>> 3. Click "Open an event" to see what events are currently inside this billbook. 
 Close the current window to go back to the main menu.
->> 4. Click "Create a new event" and enter the name of a new event. Click "ADD".
->> 5. Click "Select from existing events" to see that the event (X) you've just added is now in this billbook (Y).
+>> 4. Click "Create a new event" and enter the name of a new event. Click "ADD", and you will be taken back to the main 
+screen.
+>> 5. Click "Open an event" to see that the event (X) you've just added is now in this billbook (Y).
 Close the current window to go back to the main menu.
 >> 6. Repeat steps 4 & 5 as many times as you want to confirm that multiple events can be added to the billbook. This 
 should satisfy the requirement of being able to add multiple X's to Y.
->> 7. Click "Select from existing events" and then click into any events. If you loaded the example billbook initially, 
-you may click into "This is the event!!" which already contains some data or "Empty Event" which has no data.
->> 8. From this screen, you may add a person, add an expense, view all people, or view all expenses within the selected 
-event by clicking these buttons. This should satisfy the requirement of implementing the first related action.
+>> 7. Click "Remove an event". If you loaded the example billbook initially, you see a button for "This is the event!!" 
+and a button for "Empty Event". If you created new events in the previous steps, then you should see buttons for these 
+events. Click on one of these buttons to remove it from the billbook. 
+>> 8. Back in the main screen, Click "Open an event" to see that the event (X) you've just removed is now no longer 
+in this billbook (Y). This should satisfy the requirement of implementing the first related action.
 > - You can generate the second required action related to adding Xs to a Y by doing the following:
->> 1. Follow steps 1-7 in the section above if you haven't already.
->> 2. From the same screen in step 8 above, you may view the event's cost summary which calculates the total cost of 
-the current event and shows the amount owing for each person in this event. This can be done by clicking the "View cost 
-summary" button. This should satisfy the requirement of implementing the second related action.
+>> 1. Follow steps 1-6 in the section above if you haven't already.
+>> 2. Click "Remove an event". At the bottom of this screen, you should see a button for "RESET BILLBOOK".  
+Click on this button to remove ALL events from the current billbook.
+>> 3. Click "Open an event" to see that the billbook is now empty as you have cleared all events (X) from this billbook 
+(Y). This should satisfy the requirement of implementing the second related action.
 > - You can locate my visual component by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. The visual component is the image located at the bottom portion of the main screen.

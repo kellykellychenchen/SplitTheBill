@@ -29,6 +29,18 @@ public class BillBook implements Writable {
         events.add(event);
     }
 
+    // MODIFIES: this
+    // EFFECTS: removes given event from bill book's events.
+    public void removeEvent(Event event) {
+        events.remove(event);
+    }
+
+    // MODIFIES: this
+    // EFFECTS: removes all events from bill book's events.
+    public void clearEvents() {
+        events.clear();
+    }
+
     // EFFECTS: returns an unmodifiable list of events in this billbook.
     public List<Event> getEvents() {
         return Collections.unmodifiableList(events);

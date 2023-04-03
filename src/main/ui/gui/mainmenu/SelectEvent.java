@@ -25,7 +25,7 @@ public class SelectEvent extends JFrame implements ActionListener {
         this.bb = billbook;
         this.butts = new ArrayList<>();
 
-        JLabel l1 = new JLabel("Select from one of the following existing events.");
+        JLabel l1 = new JLabel("Select from one of the following existing events to open it.");
 
         add(l1);
         if (bb.getEvents().size() == 0) {

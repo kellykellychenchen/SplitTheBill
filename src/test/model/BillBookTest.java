@@ -73,4 +73,25 @@ public class BillBookTest {
         bb1.addEvent(event2);
         assertEquals(2, bb1.numEvents());
     }
+
+    @Test
+    public void testRemoveEvent() {
+        bb1.addEvent(event1);
+        bb1.addEvent(event2);
+        assertEquals(2,bb1.getEvents().size());
+
+        bb1.removeEvent(event1);
+        assertEquals(1,bb1.getEvents().size());
+        assertEquals(event2, bb1.getEvents().get(0));
+    }
+
+    @Test
+    public void testClearEvents() {
+        bb1.addEvent(event1);
+        bb1.addEvent(event2);
+        assertEquals(2,bb1.getEvents().size());
+
+        bb1.clearEvents();
+        assertEquals(0,bb1.getEvents().size());
+    }
 }
