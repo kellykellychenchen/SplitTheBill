@@ -90,7 +90,7 @@ public class AddExpense extends JFrame implements ActionListener {
         return sharedPanel;
     }
 
-    // TODO: confirm // MODIFIES: Event event
+    // MODIFIES: Event this.event
     // EFFECTS: When button is pressed, create a new Event with information that user entered, add it to this.event,
     // and close the current window.
     @Override

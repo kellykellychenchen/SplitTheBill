@@ -30,7 +30,7 @@ public class CreateEvent extends JFrame implements ActionListener {
         butt.addActionListener(this);
     }
 
-    // TODO: confirm // MODIFIES: Billbook bb
+    // MODIFIES: Billbook this.bb
     // EFFECTS: When button is pressed, create a new event with the name that user entered, add it to this.billbook,
     // and close the current window.
     @Override

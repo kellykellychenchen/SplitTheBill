@@ -30,7 +30,7 @@ public class AddPerson extends JFrame implements ActionListener {
         butt.addActionListener(this);
     }
 
-    // TODO: confirm // MODIFIES: Event event
+    // MODIFIES: Event this.event
     // EFFECTS: When button is pressed, create a new Person with the name that user entered, add it to this.event,
     // and close the current window.
     @Override
