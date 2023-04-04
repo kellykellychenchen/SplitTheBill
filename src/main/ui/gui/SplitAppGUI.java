@@ -28,7 +28,7 @@ public class SplitAppGUI extends JFrame implements ActionListener {
     private final JsonWriter jsonWriter;
     private final JsonReader jsonReader;
     private List<JButton> buttons;
-    private List<JLabel> labels;
+    private JLabel l1;
     private JPanel panel;
 
     // EFFECTS: constructs an empty billbook and creates the window for the main menu.
@@ -39,7 +39,6 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         jsonWriter = new JsonWriter(JSON_STORE);
         jsonReader = new JsonReader(JSON_STORE);
         buttons = new ArrayList<>();
-        labels = new ArrayList<>();
 
         setVisible(true);
         setSize(400,400);
@@ -62,15 +61,13 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         JButton b4 = new JButton("quit");
         JButton b5 = new JButton("Remove an event");
 
-        JLabel l1 = new JLabel();
-        labels.add(l0);
+        l1 = new JLabel();
         buttons.add(b0);
         buttons.add(b1);
         buttons.add(b2);
         buttons.add(b3);
         buttons.add(b4);
         buttons.add(b5);
-        labels.add(l1);
         add(l0);
         add(b0);
         add(b1);
@@ -91,7 +88,6 @@ public class SplitAppGUI extends JFrame implements ActionListener {
     // EFFECTS: sets up the image icon in the main menu.
     private void setUpImage() {
         JLabel l2 = new JLabel();
-        labels.add(l2);
         panel = new JPanel();
         panel.setSize(200,200);
         panel.add(l2);
@@ -138,9 +134,9 @@ public class SplitAppGUI extends JFrame implements ActionListener {
             jsonWriter.open();
             jsonWriter.write(billBook);
             jsonWriter.close();
-            labels.get(1).setText("Saved " + billBook.getName() + " to " + JSON_STORE);
+            l1.setText("Saved " + billBook.getName() + " to " + JSON_STORE);
         } catch (FileNotFoundException e) {
-            labels.get(1).setText("Unable to write to file: " + JSON_STORE);
+            l1.setText("Unable to write to file: " + JSON_STORE);
         }
     }
 
@@ -149,9 +145,9 @@ public class SplitAppGUI extends JFrame implements ActionListener {
     private void loadBillBook() {
         try {
             this.billBook = jsonReader.read();
-            labels.get(1).setText("Loaded " + billBook.getName() + " from " + JSON_STORE);
+            l1.setText("Loaded " + billBook.getName() + " from " + JSON_STORE);
         } catch (IOException e) {
-            labels.get(1).setText("Unable to read from file: " + JSON_STORE);
+            l1.setText("Unable to read from file: " + JSON_STORE);
         }
     }
 }

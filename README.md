@@ -54,7 +54,7 @@ project which can be accessed at this link: https://github.students.cs.ubc.ca/CP
  ## Instructions for Grader
 > - You can generate the first required action related to adding Xs to a Y by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
->> 2. Click "Load billbook from file" if you wish to load an example billbook.
+>> 2. (optional) Click "Load billbook from file" if you wish to load an example billbook.
 >> 3. Click "Open an event" to see what events are currently inside this billbook. 
 Close the current window to go back to the main menu.
 >> 4. Click "Create a new event" and enter the name of a new event. Click "ADD", and you will be taken back to the main 
@@ -70,7 +70,7 @@ events. Click on one of these buttons to remove it from the billbook.
 in this billbook (Y). This should satisfy the requirement of implementing the first related action.
 > - You can generate the second required action related to adding Xs to a Y by doing the following:
 >> 1. Follow steps 1-6 in the section above if you haven't already.
->> 2. Click "Remove an event". At the bottom of this screen, you should see a button for "RESET BILLBOOK".  
+>> 2. Click "Remove an event". At the bottom of this pop-up window, you should see a button for "RESET BILLBOOK". 
 Click on this button to remove ALL events from the current billbook.
 >> 3. Click "Open an event" to see that the billbook is now empty as you have cleared all events (X) from this billbook 
 (Y). This should satisfy the requirement of implementing the second related action.
