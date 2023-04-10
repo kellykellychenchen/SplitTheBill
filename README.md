@@ -31,12 +31,12 @@ unnecessary negative feelings. The *Split The Bill* program intends to prevent t
 convenient to manage cost splitting amongst friends and families. 
 
 ## User Stories
-- As a user, I want to be able to add a new **event** to a **billbook**.
-- As a user, I want to be able to add a new **person** to an **event**.
-- As a user, I want to be able to add a new **expense** to an **event**.
-- As a user, I want to be able to view the *list of all expenses* for an **event**. 
-- As a user, I want to be able to view the *list of all people* in an **event**.
-- As a user, I want to be able to select an **event** and view the *total cost* of the event and the 
+- As a user, I want to be able to add a new **spendingEvent** to a **billbook**.
+- As a user, I want to be able to add a new **person** to an **spendingEvent**.
+- As a user, I want to be able to add a new **expense** to an **spendingEvent**.
+- As a user, I want to be able to view the *list of all expenses* for an **spendingEvent**. 
+- As a user, I want to be able to view the *list of all people* in an **spendingEvent**.
+- As a user, I want to be able to select an **spendingEvent** and view the *total cost* of the spendingEvent and the 
 *outstanding balance* for each individual.
 - As a user, when I select the quit option from the application menu, I want to be *reminded* to save my bill book to
 file and have the *option* to do so or not. 
@@ -55,25 +55,25 @@ project which can be accessed at this link: https://github.students.cs.ubc.ca/CP
 > - You can generate the first required action related to adding Xs to a Y by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. (optional) Click "Load billbook from file" if you wish to load an example billbook.
->> 3. Click "Open an event" to see what events are currently inside this billbook. 
+>> 3. Click "Open an Event" to see what spendingEvents are currently inside this billbook. 
 Close the current window to go back to the main menu.
->> 4. Click "Create a new event" and enter the name of a new event. Click "ADD", and you will be taken back to the main 
-screen.
->> 5. Click "Open an event" to see that the event (X) you've just added is now in this billbook (Y).
+>> 4. Click "Create a new Event" and enter the name of a new spendingEvent. Click "ADD", and you will be taken back to 
+the main screen.
+>> 5. Click "Open an Event" to see that the spendingEvent (X) you've just added is now in this billbook (Y).
 Close the current window to go back to the main menu.
->> 6. Repeat steps 4 & 5 as many times as you want to confirm that multiple events can be added to the billbook. This 
-should satisfy the requirement of being able to add multiple X's to Y.
->> 7. Click "Remove an event". If you loaded the example billbook initially, you see a button for "This is the event!!" 
-and a button for "Empty Event". If you created new events in the previous steps, then you should see buttons for these 
-events. Click on one of these buttons to remove it from the billbook. 
->> 8. Back in the main screen, Click "Open an event" to see that the event (X) you've just removed is now no longer 
-in this billbook (Y). This should satisfy the requirement of implementing the first related action.
+>> 6. Repeat steps 4 & 5 as many times as you want to confirm that multiple spendingEvents can be added to the billbook.
+ This should satisfy the requirement of being able to add multiple X's to Y.
+>> 7. Click "Remove an Event". If you loaded the example billbook initially, you see a button for "This is the Event!!" 
+and a button for "Empty Event". If you created new spendingEvents in the previous steps, then you should see buttons  
+for these spendingEvents. Click on one of these buttons to remove it from the billbook. 
+>> 8. Back in the main screen, Click "Open an Event" to see that the spendingEvent (X) you've just removed is now no
+longer in this billbook (Y). This should satisfy the requirement of implementing the first related action.
 > - You can generate the second required action related to adding Xs to a Y by doing the following:
 >> 1. Follow steps 1-6 in the section above if you haven't already.
->> 2. Click "Remove an event". At the bottom of this pop-up window, you should see a button for "RESET BILLBOOK". 
-Click on this button to remove ALL events from the current billbook.
->> 3. Click "Open an event" to see that the billbook is now empty as you have cleared all events (X) from this billbook 
-(Y). This should satisfy the requirement of implementing the second related action.
+>> 2. Click "Remove an Event". At the bottom of this pop-up window, you should see a button for "RESET BILLBOOK". 
+Click on this button to remove ALL spendingEvents from the current billbook.
+>> 3. Click "Open an Event" to see that the billbook is now empty as you have cleared all spendingEvents (X) from this
+billbook (Y). This should satisfy the requirement of implementing the second related action.
 > - You can locate my visual component by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. The visual component is the image located at the bottom portion of the main screen.

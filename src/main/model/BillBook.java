@@ -8,15 +8,15 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-// Represents a billbook with a collection of events.
+// Represents a billbook with a collection of spendingEvents.
 public class BillBook implements Writable {
     private String name;
-    private List<Event> events;
+    private List<SpendingEvent> spendingEvents;
 
     // EFFECTS: constructs a billbook with a name and empty list of event.
     public BillBook(String name) {
         this.name = name;
-        events = new ArrayList<>();
+        spendingEvents = new ArrayList<>();
     }
 
     public String getName() {
@@ -24,31 +24,31 @@ public class BillBook implements Writable {
     }
 
     // MODIFIES: this
-    // EFFECTS: adds event to this bill book's events.
-    public void addEvent(Event event) {
-        events.add(event);
+    // EFFECTS: adds spendingEvent to this bill book's spendingEvents.
+    public void addEvent(SpendingEvent spendingEvent) {
+        spendingEvents.add(spendingEvent);
     }
 
     // MODIFIES: this
-    // EFFECTS: removes given event from bill book's events.
-    public void removeEvent(Event event) {
-        events.remove(event);
+    // EFFECTS: removes given spendingEvent from bill book's spendingEvents.
+    public void removeEvent(SpendingEvent spendingEvent) {
+        spendingEvents.remove(spendingEvent);
     }
 
     // MODIFIES: this
-    // EFFECTS: removes all events from bill book's events.
+    // EFFECTS: removes all spendingEvents from bill book's spendingEvents.
     public void clearEvents() {
-        events.clear();
+        spendingEvents.clear();
     }
 
-    // EFFECTS: returns an unmodifiable list of events in this billbook.
-    public List<Event> getEvents() {
-        return Collections.unmodifiableList(events);
+    // EFFECTS: returns an unmodifiable list of spendingEvents in this billbook.
+    public List<SpendingEvent> getEvents() {
+        return Collections.unmodifiableList(spendingEvents);
     }
 
-    // EFFECTS: returns the number of events in this billbook.
+    // EFFECTS: returns the number of spendingEvents in this billbook.
     public int numEvents() {
-        return events.size();
+        return spendingEvents.size();
     }
 
     // EFFECTS: Returns this billbook as a JSON object.
@@ -56,16 +56,16 @@ public class BillBook implements Writable {
     public JSONObject toJson() {
         JSONObject json = new JSONObject();
         json.put("name", name);
-        json.put("events", eventsToJson());
+        json.put("spendingEvents", eventsToJson());
         return json;
     }
 
-    // EFFECTS: Returns the events in this billbook as a JSON array.
+    // EFFECTS: Returns the spendingEvents in this billbook as a JSON array.
     private JSONArray eventsToJson() {
         JSONArray jsonArray = new JSONArray();
 
-        for (Event event : events) {
-            jsonArray.put(event.toJson());
+        for (SpendingEvent spendingEvent : spendingEvents) {
+            jsonArray.put(spendingEvent.toJson());
         }
 
         return jsonArray;

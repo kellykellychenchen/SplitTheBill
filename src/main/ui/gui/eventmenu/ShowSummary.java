@@ -1,6 +1,6 @@
 package ui.gui.eventmenu;
 
-import model.Event;
+import model.SpendingEvent;
 import model.Person;
 
 import javax.swing.*;
@@ -13,37 +13,37 @@ import static java.lang.Math.abs;
 // A window showing the cost summary.
 public class ShowSummary extends JFrame implements ActionListener {
     JPanel balanceSummaryPanel = new JPanel();
-    Event event;
+    SpendingEvent spendingEvent;
 
-    // EFFECTS: constructs a window showing the cost summary of the given event.
-    public ShowSummary(Event event) {
+    // EFFECTS: constructs a window showing the cost summary of the given spendingEvent.
+    public ShowSummary(SpendingEvent spendingEvent) {
         setVisible(true);
         setSize(400, 400);
         setLayout(new GridLayout(4, 1)); //default CardLayout. FlowLayout, GridLayout, Null
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-        this.event = event;
+        this.spendingEvent = spendingEvent;
 
-        setUpComponents(event);
+        setUpComponents(spendingEvent);
         pack();
     }
 
     // EFFECTS: sets up the labels and buttons for the show cost summary screen.
-    private void setUpComponents(Event event) {
+    private void setUpComponents(SpendingEvent spendingEvent) {
         JPanel titlePanel = new JPanel();
         JPanel totalCostPanel = new JPanel();
         JPanel closePanel = new JPanel();
 
-        JLabel l1 = new JLabel("This is a cost summary of this event.");
+        JLabel l1 = new JLabel("This is a cost summary of this spendingEvent.");
         titlePanel.add(l1);
 
         JLabel totalCostLabel = new JLabel();
-        totalCostLabel.setText("The total cost of all expenses in this event is $"
-                + String.format("%.2f", event.calcTotalCost()));
+        totalCostLabel.setText("The total cost of all expenses in this spendingEvent is $"
+                + String.format("%.2f", spendingEvent.calcTotalCost()));
         totalCostPanel.add(totalCostLabel);
 
         BoxLayout layout = new BoxLayout(balanceSummaryPanel, BoxLayout.Y_AXIS);
         balanceSummaryPanel.setLayout(layout);
-        getBalanceForEachPerson(event);
+        getBalanceForEachPerson(spendingEvent);
 
         JButton butt = new JButton("CLOSE");
         closePanel.add(butt);
@@ -57,9 +57,9 @@ public class ShowSummary extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this
-    // EFFECTS: calculate the balance for each person in the given event and update the balanceSummaryPanel.
-    private void getBalanceForEachPerson(Event event) {
-        for (Person p : event.getPeople()) {
+    // EFFECTS: calculate the balance for each person in the given spendingEvent and update the balanceSummaryPanel.
+    private void getBalanceForEachPerson(SpendingEvent spendingEvent) {
+        for (Person p : spendingEvent.getPeople()) {
             JLabel personLabel = new JLabel();
             double balance = p.getBalance();
             String personName = p.getName();

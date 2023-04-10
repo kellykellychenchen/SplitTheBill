@@ -1,6 +1,6 @@
 {
     "name": "test billbook",
-    "events": [
+    "spendingEvents": [
         {
             "name": "ev1",
             "people": [

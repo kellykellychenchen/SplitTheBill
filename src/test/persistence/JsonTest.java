@@ -1,6 +1,6 @@
 package persistence;
 
-import model.Event;
+import model.SpendingEvent;
 import model.Expense;
 import model.Person;
 
@@ -12,7 +12,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 public class JsonTest {
     // EFFECTS: takes an event, a name, a list of people and list of expenses and checks whether the event has the same
     // fields as what's been given.
-    protected void checkEvent(Event ev, String name, ArrayList<Person> people, ArrayList<Expense> expenses) {
+    protected void checkEvent(SpendingEvent ev, String name, ArrayList<Person> people, ArrayList<Expense> expenses) {
         assertEquals(name, ev.getEventName());
         checkPeople(people, ev.getPeople());
         checkExpenses(expenses, ev.getExpenses());

@@ -1,7 +1,7 @@
 package ui.gui.mainmenu;
 
 import model.BillBook;
-import model.Event;
+import model.SpendingEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -36,8 +36,8 @@ public class CreateEvent extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         String eventName = t1.getText();
-        Event event = new Event(eventName);
-        bb.addEvent(event);
+        SpendingEvent spendingEvent = new SpendingEvent(eventName);
+        bb.addEvent(spendingEvent);
         dispose();
     }
 

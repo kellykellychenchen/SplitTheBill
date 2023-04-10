@@ -1,7 +1,6 @@
 package ui.gui.mainmenu;
 
 import model.BillBook;
-import model.Event;
 import ui.gui.eventmenu.EventMenu;
 
 import javax.swing.*;

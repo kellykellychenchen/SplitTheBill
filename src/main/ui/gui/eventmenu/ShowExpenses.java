@@ -29,7 +29,7 @@ public class ShowExpenses extends JFrame implements ActionListener {
         JPanel midPanel = new JPanel();
         JPanel botPanel = new JPanel();
 
-        JLabel l1 = new JLabel("This is a list of expenses currently in this event.");
+        JLabel l1 = new JLabel("This is a list of expenses currently in this spendingEvent.");
         topPanel.add(l1);
 
         JScrollPane sp = getjScrollPane();

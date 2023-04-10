@@ -6,15 +6,15 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// Event class represents an event with an event name, a list of people that participated in the event, and list of
+// SpendingEvent class represents an event with an event name, a list of people that participated in the event, and list of
 // expenses associated with the event.
-public class Event implements Writable {
+public class SpendingEvent implements Writable {
     private String eventName;
     private ArrayList<Person> people;
     private ArrayList<Expense> expenses;
 
     // EFFECTS: constructs an event with a given event name, an empty list of people, and an empty list of expenses.
-    public Event(String eventName) {
+    public SpendingEvent(String eventName) {
         this.eventName = eventName;
         this.people = new ArrayList<>();
         this.expenses = new ArrayList<>();

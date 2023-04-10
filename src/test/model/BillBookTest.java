@@ -3,8 +3,6 @@ package model;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -13,16 +11,16 @@ import static org.junit.jupiter.api.Assertions.fail;
 // Tests for the billbook class
 public class BillBookTest {
     BillBook bb1;
-    Event event1;
-    Event event2;
-    Event event3;
+    SpendingEvent spendingEvent1;
+    SpendingEvent spendingEvent2;
+    SpendingEvent spendingEvent3;
 
     @BeforeEach
     public void setup() {
         bb1 = new BillBook("test book");
-        event1 = new Event("test event");
-        event2 = new Event("second test event");
-        event3 = new Event("third test event");
+        spendingEvent1 = new SpendingEvent("test event");
+        spendingEvent2 = new SpendingEvent("second test event");
+        spendingEvent3 = new SpendingEvent("third test event");
     }
 
     @Test
@@ -33,62 +31,62 @@ public class BillBookTest {
 
     @Test
     public void testAddEvent() {
-        bb1.addEvent(event1);
+        bb1.addEvent(spendingEvent1);
         assertEquals(1,bb1.getEvents().size());
-        assertEquals(event1, bb1.getEvents().get(0));
+        assertEquals(spendingEvent1, bb1.getEvents().get(0));
 
-        bb1.addEvent(event2);
+        bb1.addEvent(spendingEvent2);
         assertEquals(2,bb1.getEvents().size());
-        assertEquals(event1, bb1.getEvents().get(0));
-        assertEquals(event2, bb1.getEvents().get(1));
+        assertEquals(spendingEvent1, bb1.getEvents().get(0));
+        assertEquals(spendingEvent2, bb1.getEvents().get(1));
     }
 
     @Test
     public void testGetUnmodifiableEvents() {
-        bb1.addEvent(event1);
-        bb1.addEvent(event2);
+        bb1.addEvent(spendingEvent1);
+        bb1.addEvent(spendingEvent2);
         assertEquals(2,bb1.getEvents().size());
 
-        List<Event> gottenList = bb1.getEvents();
+        List<SpendingEvent> gottenList = bb1.getEvents();
         try {
-            gottenList.add(event3);
-            gottenList.remove(event1);
+            gottenList.add(spendingEvent3);
+            gottenList.remove(spendingEvent1);
             fail("didn't catch exception when it should have");
         } catch (UnsupportedOperationException exception) {
             // good, proceed
         }
         assertEquals(2,gottenList.size());
         assertEquals(2,bb1.getEvents().size());
-        assertEquals(event1, bb1.getEvents().get(0));
-        assertEquals(event2, bb1.getEvents().get(1));
+        assertEquals(spendingEvent1, bb1.getEvents().get(0));
+        assertEquals(spendingEvent2, bb1.getEvents().get(1));
     }
 
     @Test
     public void testNumEvents() {
         assertEquals(0, bb1.numEvents());
 
-        bb1.addEvent(event1);
+        bb1.addEvent(spendingEvent1);
         assertEquals(1, bb1.numEvents());
 
-        bb1.addEvent(event2);
+        bb1.addEvent(spendingEvent2);
         assertEquals(2, bb1.numEvents());
     }
 
     @Test
     public void testRemoveEvent() {
-        bb1.addEvent(event1);
-        bb1.addEvent(event2);
+        bb1.addEvent(spendingEvent1);
+        bb1.addEvent(spendingEvent2);
         assertEquals(2,bb1.getEvents().size());
 
-        bb1.removeEvent(event1);
+        bb1.removeEvent(spendingEvent1);
         assertEquals(1,bb1.getEvents().size());
-        assertEquals(event2, bb1.getEvents().get(0));
+        assertEquals(spendingEvent2, bb1.getEvents().get(0));
     }
 
     @Test
     public void testClearEvents() {
-        bb1.addEvent(event1);
-        bb1.addEvent(event2);
+        bb1.addEvent(spendingEvent1);
+        bb1.addEvent(spendingEvent2);
         assertEquals(2,bb1.getEvents().size());
 
         bb1.clearEvents();

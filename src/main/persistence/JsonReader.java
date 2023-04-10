@@ -1,7 +1,7 @@
 package persistence;
 
 import model.BillBook;
-import model.Event;
+import model.SpendingEvent;
 import model.Expense;
 import model.Person;
 import org.json.JSONArray;
@@ -54,7 +54,7 @@ public class JsonReader {
     // MODIFIES: bb
     // EFFECTS: parse events from JSON object and adds them to billbook
     private void addEventsToBillBook(BillBook bb, JSONObject jsonObject) {
-        JSONArray jsonArray = jsonObject.getJSONArray("events");
+        JSONArray jsonArray = jsonObject.getJSONArray("spendingEvents");
         for (Object json : jsonArray) {
             JSONObject nextEvent = (JSONObject) json;
             addEventToBillBook(bb, nextEvent);
@@ -65,42 +65,42 @@ public class JsonReader {
     // EFFECTS: parse event from JSON object and add it to billbook
     private void addEventToBillBook(BillBook bb, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
-        Event event = new Event(name);
-        addPeopleToEvent(event, jsonObject);
-        addExpensesToEvent(event, jsonObject);
-        bb.addEvent(event);
+        SpendingEvent spendingEvent = new SpendingEvent(name);
+        addPeopleToEvent(spendingEvent, jsonObject);
+        addExpensesToEvent(spendingEvent, jsonObject);
+        bb.addEvent(spendingEvent);
     }
 
-    // MODIFIES: event
-    // EFFECTS: parse people from JSON object and adds them to event
-    private void addPeopleToEvent(Event event, JSONObject jsonObject) {
+    // MODIFIES: spendingEvent
+    // EFFECTS: parse people from JSON object and adds them to spendingEvent
+    private void addPeopleToEvent(SpendingEvent spendingEvent, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("people");
         for (Object json : jsonArray) {
             JSONObject nextPerson = (JSONObject) json;
-            addPersonToEvent(event, nextPerson);
+            addPersonToEvent(spendingEvent, nextPerson);
         }
     }
 
-    // MODIFIES: event
-    // EFFECTS: parse person from JSON object and add it to event
-    private void addPersonToEvent(Event event, JSONObject jsonObject) {
+    // MODIFIES: spendingEvent
+    // EFFECTS: parse person from JSON object and add it to spendingEvent
+    private void addPersonToEvent(SpendingEvent spendingEvent, JSONObject jsonObject) {
         Person person = parsePerson(jsonObject);
-        event.addPerson(person);
+        spendingEvent.addPerson(person);
     }
 
-    // MODIFIES: event
-    // EFFECTS: parse expenses from JSON object and adds them to event
-    private void addExpensesToEvent(Event event, JSONObject jsonObject) {
+    // MODIFIES: spendingEvent
+    // EFFECTS: parse expenses from JSON object and adds them to spendingEvent
+    private void addExpensesToEvent(SpendingEvent spendingEvent, JSONObject jsonObject) {
         JSONArray jsonArray = jsonObject.getJSONArray("expenses");
         for (Object json : jsonArray) {
             JSONObject nextExpense = (JSONObject) json;
-            addExpenseToEvent(event, nextExpense);
+            addExpenseToEvent(spendingEvent, nextExpense);
         }
     }
 
-    // MODIFIES: event
-    // EFFECTS: parse expense from JSON object and add it to event
-    private void addExpenseToEvent(Event event, JSONObject jsonObject) {
+    // MODIFIES: spendingEvent
+    // EFFECTS: parse expense from JSON object and add it to spendingEvent
+    private void addExpenseToEvent(SpendingEvent spendingEvent, JSONObject jsonObject) {
         String name = jsonObject.getString("name");
         double amount = jsonObject.getDouble("amount");
         Person paidBy = parsePerson((JSONObject) jsonObject.get("paidBy"));
@@ -108,7 +108,7 @@ public class JsonReader {
         addPeopleToSharedBy(sharedBy, jsonObject);
 
         Expense expense = new Expense(name, amount, paidBy, sharedBy);
-        event.addExpense(expense);
+        spendingEvent.addExpense(expense);
     }
 
     // MODIFIES: sharedBy

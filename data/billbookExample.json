@@ -1,6 +1,6 @@
 {
   "name": "Kelly's Bill Book",
-  "events": [
+  "spendingEvents": [
     {
       "name": "This is the event!!",
       "people": [

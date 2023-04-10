@@ -1,6 +1,6 @@
 package ui.gui.eventmenu;
 
-import model.Event;
+import model.SpendingEvent;
 
 import javax.swing.*;
 import java.awt.*;
@@ -9,28 +9,28 @@ import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.List;
 
-// Event menu window.
+// SpendingEvent menu window.
 public class EventMenu extends JFrame implements ActionListener {
     List<JButton> butts;
-    Event event;
+    SpendingEvent spendingEvent;
 
-    // EFFECTS: constructs a event menu window for the given event
-    public EventMenu(Event event) {
+    // EFFECTS: constructs a spendingEvent menu window for the given spendingEvent
+    public EventMenu(SpendingEvent spendingEvent) {
         setVisible(true);
         setSize(400, 400);
         setLayout(new GridLayout(6, 1));
         setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
         this.butts = new ArrayList<>();
-        this.event = event;
+        this.spendingEvent = spendingEvent;
 
         setUpComponents();
         addListeners();
     }
 
     // MODIFIES: this.
-    // EFFECTS: sets up the labels and buttons for the event menu and stores them as fields.
+    // EFFECTS: sets up the labels and buttons for the spendingEvent menu and stores them as fields.
     private void setUpComponents() {
-        JLabel l1 = new JLabel("What would you like to do in this event?");
+        JLabel l1 = new JLabel("What would you like to do in this spendingEvent?");
         JButton b0 = new JButton("Add person");
         JButton b1 = new JButton("Add expense");
         JButton b2 = new JButton("View people");
@@ -60,19 +60,19 @@ public class EventMenu extends JFrame implements ActionListener {
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == butts.get(0)) {
-            new AddPerson(this.event);
+            new AddPerson(this.spendingEvent);
         }
         if (e.getSource() == butts.get(1)) {
-            new AddExpense(this.event);
+            new AddExpense(this.spendingEvent);
         }
         if (e.getSource() == butts.get(2)) {
-            new ShowPeople(this.event.getPeople());
+            new ShowPeople(this.spendingEvent.getPeople());
         }
         if (e.getSource() == butts.get(3)) {
-            new ShowExpenses(this.event.getExpenses());
+            new ShowExpenses(this.spendingEvent.getExpenses());
         }
         if (e.getSource() == butts.get(4)) {
-            new ShowSummary(this.event);
+            new ShowSummary(this.spendingEvent);
         }
     }
 }
