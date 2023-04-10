@@ -27,18 +27,22 @@ public class BillBook implements Writable {
     // EFFECTS: adds spendingEvent to this bill book's spendingEvents.
     public void addEvent(SpendingEvent spendingEvent) {
         spendingEvents.add(spendingEvent);
+        EventLog.getInstance().logEvent(new Event("Added spendingEvent: " + spendingEvent.getEventName()));
     }
 
     // MODIFIES: this
     // EFFECTS: removes given spendingEvent from bill book's spendingEvents.
     public void removeEvent(SpendingEvent spendingEvent) {
         spendingEvents.remove(spendingEvent);
+        EventLog.getInstance().logEvent(new Event("Removed spendingEvent: " + spendingEvent.getEventName()));
+
     }
 
     // MODIFIES: this
     // EFFECTS: removes all spendingEvents from bill book's spendingEvents.
     public void clearEvents() {
         spendingEvents.clear();
+        EventLog.getInstance().logEvent(new Event("Cleared all spendingEvents"));
     }
 
     // EFFECTS: returns an unmodifiable list of spendingEvents in this billbook.

@@ -61,7 +61,8 @@ public class AddExpense extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this.
-    // EFFECTS: create radio-buttons for all people in the given spendingEvent. Update the paidChoices and paidPanel fields.
+    // EFFECTS: create radio-buttons for all people in the given spendingEvent. Update the paidChoices and paidPanel
+    // fields.
     private JPanel getPaidPanel(SpendingEvent spendingEvent) {
         JLabel paidPromptLabel = new JLabel("Who paid for this expense?");
         ButtonGroup bg = new ButtonGroup();
@@ -77,7 +78,8 @@ public class AddExpense extends JFrame implements ActionListener {
     }
 
     // MODIFIES: this.
-    // EFFECTS: create check-boxes for all people in the given spendingEvent. Update the sharedChoices and sharedPanel fields.
+    // EFFECTS: create check-boxes for all people in the given spendingEvent. Update the sharedChoices and sharedPanel
+    // fields.
     private JPanel getSharedPanel(SpendingEvent spendingEvent) {
         JLabel sharedPromptLabel = new JLabel("Who shares the cost of this expense?");
         JPanel sharedPanel = new JPanel();
@@ -91,8 +93,8 @@ public class AddExpense extends JFrame implements ActionListener {
     }
 
     // MODIFIES: SpendingEvent this.spendingEvent
-    // EFFECTS: When button is pressed, create a new SpendingEvent with information that user entered, add it to this.spendingEvent,
-    // and close the current window.
+    // EFFECTS: When button is pressed, create a new SpendingEvent with information that user entered, add it to
+    // this.spendingEvent, and close the current window.
     @Override
     public void actionPerformed(ActionEvent e) {
         double amount = Double.parseDouble(t0.getText());

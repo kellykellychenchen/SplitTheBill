@@ -37,5 +37,6 @@ public class PromptSave extends JFrame implements ActionListener {
             this.app.saveBillBook();
         }
         dispose();
+        app.dispose();
     }
 }

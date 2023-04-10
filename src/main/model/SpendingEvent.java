@@ -6,8 +6,8 @@ import persistence.Writable;
 
 import java.util.ArrayList;
 
-// SpendingEvent class represents an event with an event name, a list of people that participated in the event, and list of
-// expenses associated with the event.
+// SpendingEvent class represents an event with an event name, a list of people that participated in the event, and
+// list of expenses associated with the event.
 public class SpendingEvent implements Writable {
     private String eventName;
     private ArrayList<Person> people;
@@ -24,12 +24,16 @@ public class SpendingEvent implements Writable {
     // EFFECTS: adds a given person to this event's people list.
     public void addPerson(Person p) {
         people.add(p);
+        EventLog.getInstance().logEvent(new Event("Added person: " + p.getName() + " to spendingEvent: "
+                + this.eventName));
     }
 
     // MODIFIES: this
     // EFFECTS: adds a given expense to the event's expense list.
     public void addExpense(Expense ex) {
         expenses.add(ex);
+        EventLog.getInstance().logEvent(new Event("Added expense: " + ex.getExpenseName()
+                + " to spendingEvent: " + this.eventName));
     }
 
     // EFFECTS: returns the total cost of all expenses in this event.
@@ -47,6 +51,8 @@ public class SpendingEvent implements Writable {
         for (Person p : this.people) {
             calcPersonBalance(p);
         }
+        EventLog.getInstance().logEvent(new Event("Re-calculated each person's balance for spendingEvent: "
+                + this.eventName));
     }
 
     // MODIFIES: Person p

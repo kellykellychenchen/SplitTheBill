@@ -1,191 +1,44 @@
 {
     "name": "Kelly's Bill Book",
-    "spendingEvents": [
-        {
-            "name": "This is the event!!",
-            "people": [
+    "spendingEvents": [{
+        "name": "new event",
+        "people": [
+            {
+                "balance": 50,
+                "totalPaid": 100,
+                "name": "p1",
+                "totalShared": 50
+            },
+            {
+                "balance": -50,
+                "totalPaid": 0,
+                "name": "p2",
+                "totalShared": 50
+            }
+        ],
+        "expenses": [{
+            "amount": 100,
+            "paidBy": {
+                "balance": 50,
+                "totalPaid": 100,
+                "name": "p1",
+                "totalShared": 50
+            },
+            "sharedBy": [
                 {
-                    "balance": 250,
-                    "totalPaid": 500,
-                    "name": "Rich Person",
-                    "totalShared": 250
+                    "balance": 50,
+                    "totalPaid": 100,
+                    "name": "p1",
+                    "totalShared": 50
                 },
                 {
-                    "balance": 1750,
-                    "totalPaid": 2000,
-                    "name": "Another Rich Person",
-                    "totalShared": 250
-                },
-                {
-                    "balance": -385,
-                    "totalPaid": 20,
-                    "name": "Poor Person",
-                    "totalShared": 405
-                },
-                {
-                    "balance": -405,
+                    "balance": -50,
                     "totalPaid": 0,
-                    "name": "Poorer  Person",
-                    "totalShared": 405
-                },
-                {
-                    "balance": -406.6666666666667,
-                    "totalPaid": 0,
-                    "name": "Homeless",
-                    "totalShared": 406.6666666666667
-                },
-                {
-                    "balance": -406.6666666666667,
-                    "totalPaid": 0,
-                    "name": "Homeless's Friend",
-                    "totalShared": 406.6666666666667
-                },
-                {
-                    "balance": -396.6666666666667,
-                    "totalPaid": 5,
-                    "name": "Kelly",
-                    "totalShared": 401.6666666666667
+                    "name": "p2",
+                    "totalShared": 50
                 }
             ],
-            "expenses": [
-                {
-                    "amount": 20,
-                    "paidBy": {
-                        "balance": -385,
-                        "totalPaid": 20,
-                        "name": "Poor Person",
-                        "totalShared": 405
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": -385,
-                            "totalPaid": 20,
-                            "name": "Poor Person",
-                            "totalShared": 405
-                        },
-                        {
-                            "balance": -405,
-                            "totalPaid": 0,
-                            "name": "Poorer  Person",
-                            "totalShared": 405
-                        },
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless",
-                            "totalShared": 406.6666666666667
-                        },
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless's Friend",
-                            "totalShared": 406.6666666666667
-                        }
-                    ],
-                    "name": "Socks"
-                },
-                {
-                    "amount": 500,
-                    "paidBy": {
-                        "balance": 250,
-                        "totalPaid": 500,
-                        "name": "Rich Person",
-                        "totalShared": 250
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": 250,
-                            "totalPaid": 500,
-                            "name": "Rich Person",
-                            "totalShared": 250
-                        },
-                        {
-                            "balance": 1750,
-                            "totalPaid": 2000,
-                            "name": "Another Rich Person",
-                            "totalShared": 250
-                        }
-                    ],
-                    "name": "Fancy Dinner"
-                },
-                {
-                    "amount": 2000,
-                    "paidBy": {
-                        "balance": 1750,
-                        "totalPaid": 2000,
-                        "name": "Another Rich Person",
-                        "totalShared": 250
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": -385,
-                            "totalPaid": 20,
-                            "name": "Poor Person",
-                            "totalShared": 405
-                        },
-                        {
-                            "balance": -405,
-                            "totalPaid": 0,
-                            "name": "Poorer  Person",
-                            "totalShared": 405
-                        },
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless",
-                            "totalShared": 406.6666666666667
-                        },
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless's Friend",
-                            "totalShared": 406.6666666666667
-                        },
-                        {
-                            "balance": -396.6666666666667,
-                            "totalPaid": 5,
-                            "name": "Kelly",
-                            "totalShared": 401.6666666666667
-                        }
-                    ],
-                    "name": "Charity"
-                },
-                {
-                    "amount": 5,
-                    "paidBy": {
-                        "balance": -396.6666666666667,
-                        "totalPaid": 5,
-                        "name": "Kelly",
-                        "totalShared": 401.6666666666667
-                    },
-                    "sharedBy": [
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless",
-                            "totalShared": 406.6666666666667
-                        },
-                        {
-                            "balance": -406.6666666666667,
-                            "totalPaid": 0,
-                            "name": "Homeless's Friend",
-                            "totalShared": 406.6666666666667
-                        },
-                        {
-                            "balance": -396.6666666666667,
-                            "totalPaid": 5,
-                            "name": "Kelly",
-                            "totalShared": 401.6666666666667
-                        }
-                    ],
-                    "name": "Homeless Party"
-                }
-            ]
-        },
-        {
-            "name": "Empty Event",
-            "people": [],
-            "expenses": []
-        }
-    ]
+            "name": "exp1"
+        }]
+    }]
 }

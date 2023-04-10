@@ -31,8 +31,8 @@ public class AddPerson extends JFrame implements ActionListener {
     }
 
     // MODIFIES: SpendingEvent this.spendingEvent
-    // EFFECTS: When button is pressed, create a new Person with the name that user entered, add it to this.spendingEvent,
-    // and close the current window.
+    // EFFECTS: When button is pressed, create a new Person with the name that user entered, add it to
+    // this.spendingEvent, and close the current window.
     @Override
     public void actionPerformed(ActionEvent e) {
         String name = t1.getText();

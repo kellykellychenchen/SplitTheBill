@@ -48,7 +48,12 @@ The following user stories are available in the console-based ui only.
 
 ## Citations
 The data-persistence design of this project is adapted from the persistence package in the JsonSerializationDemo
-project which can be accessed at this link: https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+project which can be accessed at this link:  
+https://github.students.cs.ubc.ca/CPSC210/JsonSerializationDemo.git
+
+The event-logging design of this project is adapted from the model package in the AlarmSystem project which can be 
+accessed at this link:  
+https://github.students.cs.ubc.ca/CPSC210/AlarmSystem
 
 
  ## Instructions for Grader
@@ -85,3 +90,28 @@ you would like to save your data. Click "Yes" to save.
 > - You can reload the state of my application by doing the following:
 >> 1. Run the program from ui/gui/MainGUI.java.
 >> 2. You may click the "Load billbook from file" button on the main screen to load the saved file.
+
+
+## Phase 4: Task 2
+See below for a representative sample of the events that occur when the program runs.
+
+Mon Apr 10 16:00:05 PDT 2023  
+Added spendingEvent: e1  
+Mon Apr 10 16:00:08 PDT 2023  
+Added spendingEvent: e2  
+Mon Apr 10 16:00:09 PDT 2023  
+Added spendingEvent: e3  
+Mon Apr 10 16:00:16 PDT 2023  
+Removed spendingEvent: e1  
+Mon Apr 10 16:00:18 PDT 2023  
+Cleared all spendingEvents  
+Mon Apr 10 16:00:28 PDT 2023  
+Added spendingEvent: new event  
+Mon Apr 10 16:00:34 PDT 2023  
+Added person: p1 to spendingEvent: new event  
+Mon Apr 10 16:00:36 PDT 2023  
+Added person: p2 to spendingEvent: new event  
+Mon Apr 10 16:00:43 PDT 2023  
+Added expense: exp1 to spendingEvent: new event  
+Mon Apr 10 16:00:43 PDT 2023  
+Re-calculated each person's balance for spendingEvent: new event  

@@ -1,6 +1,8 @@
 package ui.gui;
 
 import model.BillBook;
+import model.Event;
+import model.EventLog;
 import persistence.JsonReader;
 import persistence.JsonWriter;
 import ui.gui.mainmenu.CreateEvent;
@@ -13,6 +15,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.WindowEvent;
+import java.awt.event.WindowListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -21,7 +25,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // Main menu window for the Split The Bill application.
-public class SplitAppGUI extends JFrame implements ActionListener {
+public class SplitAppGUI extends JFrame implements ActionListener, WindowListener {
     private static final String JSON_STORE = "./data/billbook.json";
     private static final String IMG_STORE = "./data/dollar.jpg";
     private BillBook billBook;
@@ -43,7 +47,8 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         setVisible(true);
         setSize(400,400);
         setLayout(new FlowLayout());
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
+        addWindowListener(this);
 
         setUpComponents();
         setUpImage();
@@ -121,7 +126,6 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         }
         if (e.getSource() == buttons.get(4)) {
             new PromptSave(this);
-            dispose();
         }
         if (e.getSource() == buttons.get(5)) {
             new DeleteEvent(this.billBook);
@@ -149,5 +153,42 @@ public class SplitAppGUI extends JFrame implements ActionListener {
         } catch (IOException e) {
             l1.setText("Unable to read from file: " + JSON_STORE);
         }
+    }
+
+    @Override
+    public void windowOpened(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosing(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowClosed(WindowEvent e) {
+        for (Event event : EventLog.getInstance()) {
+            System.out.println(event.toString());
+        }
+    }
+
+    @Override
+    public void windowIconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeiconified(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowActivated(WindowEvent e) {
+
+    }
+
+    @Override
+    public void windowDeactivated(WindowEvent e) {
+
     }
 }
