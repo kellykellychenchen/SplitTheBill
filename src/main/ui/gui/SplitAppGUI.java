@@ -165,6 +165,7 @@ public class SplitAppGUI extends JFrame implements ActionListener, WindowListene
 
     }
 
+    // EFFECTS: when window is closed, print event log to console.
     @Override
     public void windowClosed(WindowEvent e) {
         for (Event event : EventLog.getInstance()) {
