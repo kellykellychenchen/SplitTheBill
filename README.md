@@ -93,7 +93,7 @@ you would like to save your data. Click "Yes" to save.
 
 
 ## Phase 4: Task 2
-See below for a representative sample of the events that occur when the program runs.
+*Copy and paste a representative sample of the events that occur when your program runs.*
 
 Mon Apr 10 16:00:05 PDT 2023  
 Added spendingEvent: e1  
@@ -114,4 +114,28 @@ Added person: p2 to spendingEvent: new event
 Mon Apr 10 16:00:43 PDT 2023  
 Added expense: exp1 to spendingEvent: new event  
 Mon Apr 10 16:00:43 PDT 2023  
-Re-calculated each person's balance for spendingEvent: new event  
+Re-calculated each person's balance for spendingEvent: new event
+
+## Phase 4: Task 3
+*If you had more time to work on the project, what substantive refactoring might you use to improve your design?*
+
+From the UML diagram, we can see that SpendingEvent has a list of Expense, and both SpendingEvent and Expense have a 
+list of Person. If there were time I would try to eliminate storing a list of Person inside an Expense, since that list 
+of Person is just a subset of the list of Person stored in the SpendingEvent that this Expense is a part of. This 
+created some problems when reading from Json as it creates one list of Person for an Expense and another list for the 
+SpendingEvent even though the Persons inside these 2 lists are supposed to be partially the same. To avoid this problem
+and to reduce coupling between classes, I would probably store the list of Person inside SpendingEvent as a HashMap 
+with unique integer keys, and store a list of these keys inside Expense. So when Expense specifies its own list of 
+Person, it specifies a list of integer keys instead and gets the corresponding Person from the SpendingEvent which 
+this expense is a part of.
+
+Additionally, we can also see in the UML diagram that there are many classes implementing the ActionListener interface 
+and extending 
+the JFrame class. We should be able to reduce this significantly by not creating a new JFrame for every single action 
+that required user inputs. Finally, in the SplitApp class that holds the console-based user interface, there is ~600 
+lines of code. The coherence in this 
+class is probably quite low as it holds the user-interface for the whole application. If there were more time I'd 
+definitely do some refactoring in this class to maybe break it up into a couple smaller classes to make it more 
+manageable. For example, all actions related to main menu could be one class, actions related to the event menu could be
+one class, actions related to the expense menu could be one class, and actions related to saving/loading the billbook
+could be another class.
